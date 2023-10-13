@@ -19,10 +19,11 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/werf/logboek/pkg/level"
-	"github.com/werf/logboek/pkg/types"
 	"io"
 	"os"
+
+	"github.com/werf/logboek/pkg/level"
+	"github.com/werf/logboek/pkg/types"
 
 	"github.com/gookit/color"
 	"github.com/sirupsen/logrus"
@@ -143,7 +144,15 @@ func NewPrettyLogger(opts LoggerOptions) *PrettyLogger {
 	}
 
 	if opts.OutStream != nil {
-		res.logboekLogger = logboek.DefaultLogger().NewSubLogger(opts.OutStream, opts.OutStream)
+		f, err := os.OpenFile("/tmp/cluster-manager.log", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0o600)
+		if err != nil {
+			panic(fmt.Errorf("[todo][test] failed to open /tmp/cluster-manager.log file: %w", err))
+		}
+
+		multiWriter := io.MultiWriter(opts.OutStream, f)
+
+		res.logboekLogger = logboek.DefaultLogger().NewSubLogger(multiWriter, multiWriter)
+		res.logboekLogger.Streams().DisableProxyStreamDataFormatting()
 	} else {
 		res.logboekLogger = logboek.DefaultLogger()
 	}
