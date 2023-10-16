@@ -1,0 +1,28 @@
+FROM alt:latest AS builder
+
+RUN mkdir -p /src/argocd-image-updater
+WORKDIR /src/argocd-image-updater
+
+RUN apt-get update && apt-get install -y git make golang
+
+RUN git clone --depth 1 -b v0.11.3 https://github.com/werf/3p-argocd-image-updater.git .
+
+RUN mkdir -p dist && \
+	make controller
+
+FROM alt:latest
+
+RUN apt-get update && \
+    apt-get install -y git openssh-clients && \
+    rm -rf /var/cache/apk/*
+
+RUN mkdir -p /usr/local/bin
+RUN mkdir -p /app/config
+RUN adduser --home-dir "/app" --uid 1000 argocd
+
+COPY --from=builder /src/argocd-image-updater/dist/argocd-image-updater /usr/local/bin/
+COPY --from=builder /src/argocd-image-updater/hack/git-ask-pass.sh /usr/local/bin/git-ask-pass.sh
+
+USER 1000
+
+ENTRYPOINT ["/usr/local/bin/argocd-image-updater"]

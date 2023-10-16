@@ -1,0 +1,27 @@
+---
+image: {{ .ModuleName }}/{{ .ImageName }}
+from: {{ .Images.BASE_UBUNTU }}
+git:
+  - add: /{{ $.ModulePath }}modules/502-{{ $.ModuleName }}/images/{{ $.ImageName }}/argocd-cmp-sidecar-plugin.yaml
+    to: /argocd-cmp-sidecar-plugin.yaml
+    stageDependencies:
+      install:
+        - '**/*'
+shell:
+  install:
+    - export DEBIAN_FRONTEND="noninteractive"
+    - apt-get -y update
+    - apt-get -y install fuse-overlayfs git uidmap libcap2-bin
+    - setcap cap_setuid+ep /usr/bin/newuidmap
+    - setcap cap_setgid+ep /usr/bin/newgidmap
+    - chmod u-s,g-s /usr/bin/newuidmap /usr/bin/newgidmap
+    - useradd -m argocd -r && echo 'argocd:100000:65536' | tee /etc/subuid >/etc/subgid
+    - mkdir -p /home/argocd/cmp-server/config
+    - cp /argocd-cmp-sidecar-plugin.yaml /home/argocd/cmp-server/config/plugin.yaml
+    - mkdir -p /home/argocd/.local/share/containers
+docker:
+  WORKDIR: /home/argocd
+  ENV:
+    WERF_CONTAINERIZED: yes
+    WERF_BUILDAH_MODE: auto
+  ENTRYPOINT: ["/var/run/argocd/argocd-cmp-server"]
