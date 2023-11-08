@@ -73,6 +73,7 @@ var auditPolicyBasicServiceAccounts = []string{
 	"deckhouse",
 	"descheduler",
 	"dex",
+	"documentation",
 	"early-oom",
 	"ebpf-exporter",
 	"events-exporter",
