@@ -26,6 +26,7 @@ import (
 	"github.com/flant/docs-builder/pkg/k8s"
 
 	"github.com/gorilla/mux"
+	apierror "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/klog/v2"
 )
 
@@ -79,7 +80,7 @@ func main() {
 	klog.Info("Server started")
 
 	if highAvailability {
-		if err := lManager.Create(ctx); err != nil {
+		if err := lManager.Create(ctx); err != nil && !apierror.IsAlreadyExists(err) {
 			klog.Fatalf("create leases: %v", err)
 		}
 
