@@ -39,6 +39,7 @@ rules:
     - machinedeployments
     - machines
     - machinesets
+    - machinedeployments/scale
   verbs:
     - get
     - list
@@ -63,6 +64,7 @@ rules:
   resources:
   - machinedeployments
   - machines
+  - machinedeployments/scale
   verbs:
   - patch
   - update
