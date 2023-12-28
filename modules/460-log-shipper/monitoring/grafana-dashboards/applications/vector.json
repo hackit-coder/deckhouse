@@ -181,7 +181,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (component_id, component_kind) (rate(vector_utilization{node=~\"$node\", job=\"log-shipper-agent\"}[$__interval_sx4])) > 0",
+          "expr": "sum by (component_id, component_kind) (rate(vector_utilization{node=~\"$node\", job=\"log-shipper-agent\"}[$__rate_interval])) > 0",
           "instant": false,
           "interval": "",
           "legendFormat": "{{ component_kind }} : {{ component_id }}",
