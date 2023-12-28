@@ -31,7 +31,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "description": "Note that this table shows the average values for the entire period selected in the dashboard. Consequently, it may contain information about Pods or namespaces that were changed or deleted during the selected period.",
       "fieldConfig": {
@@ -845,48 +845,47 @@
       "type": "table"
     },
     {
-      "cards": {
-        "cardHSpacing": 2,
-        "cardMinWidth": 5,
-        "cardVSpacing": 2
-      },
-      "color": {
-        "cardColor": "#b4ff00",
-        "colorScale": "sqrt",
-        "colorScheme": "interpolateGnYlRd",
-        "defaultColor": "#757575",
-        "exponent": 0.5,
-        "mode": "discrete",
-        "thresholds": [
-          {
-            "color": "#bf1b00",
-            "tooltip": "100% not ready",
-            "value": "0"
-          },
-          {
-            "color": "#508642",
-            "tooltip": "100% ready",
-            "value": "1"
-          },
-          {
-            "color": "#ea6460",
-            "tooltip": "60-99% not ready",
-            "value": "2"
-          },
-          {
-            "color": "#e5ac0e",
-            "tooltip": "30-59% not ready",
-            "value": "3"
-          },
-          {
-            "color": "#f4d598",
-            "tooltip": "1-29% not ready",
-            "value": "4"
-          }
-        ]
-      },
       "datasource": {
         "uid": "$ds_prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 1
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "light-red",
+                "value": 30
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 60
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -894,82 +893,61 @@
         "x": 0,
         "y": 8
       },
-      "hideBranding": false,
-      "highlightCards": true,
       "id": 223,
-      "legend": {
-        "show": true
-      },
       "links": [],
-      "nullPointMode": "as empty",
-      "pageSize": 15,
-      "seriesFilterIndex": -1,
-      "statusmap": {
-        "ConfigVersion": "v1"
+      "options": {
+        "colWidth": 0.9,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "targets": [
         {
-          "expr": "((max by (job, namespace, controller_type, controller_name, controller) (kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"})) *  on (job, namespace, controller_type, controller_name) group_right(controller) \n(kube_controller_replicas_ready/kube_controller_replicas == 1)) * 1",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
+          "editorMode": "code",
+          "expr": "kube_controller_replicas_ready{namespace=~\"$namespace\", controller_type=~\"$controller_type\", controller_type != \"ReplicaSet\", controller_name=~\"$controller\"}/kube_controller_replicas{namespace=~\"$namespace\", controller_type=~\"$controller_type\", controller_type != \"ReplicaSet\", controller_name=~\"$controller\"}*100",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{ controller }}",
+          "legendFormat": "{{controller_type}}/{{ controller_name }}",
+          "range": true,
           "refId": "A"
-        },
-        {
-          "expr": "((max by (job, namespace, controller_type, controller_name, controller) (kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"})) *  on (job, namespace, controller_type, controller_name) group_right(controller) \n((kube_controller_replicas_ready/kube_controller_replicas >   0) and  (kube_controller_replicas_ready/kube_controller_replicas <  0.3)) > bool 0)  * 2",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ controller }}",
-          "refId": "B"
-        },
-        {
-          "expr": "((max by (job, namespace, controller_type, controller_name, controller) (kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"})) *  on (job, namespace, controller_type, controller_name) group_right(controller) \n((kube_controller_replicas_ready/kube_controller_replicas >=   0.3) and  (kube_controller_replicas_ready/kube_controller_replicas <  0.6)) > bool 0)  * 3",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ controller }}",
-          "refId": "C"
-        },
-        {
-          "expr": "((max by (job, namespace, controller_type, controller_name, controller) (kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"})) *  on (job, namespace, controller_type, controller_name) group_right(controller) \n((kube_controller_replicas_ready/kube_controller_replicas >=   0.6) and  (kube_controller_replicas_ready/kube_controller_replicas <  1)) > bool 0)  * 4",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ controller }}",
-          "refId": "D"
-        },
-        {
-          "expr": "((max by (job, namespace, controller_type, controller_name, controller) (kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"})) *  on (job, namespace, controller_type, controller_name) group_right(controller)\n(kube_controller_replicas_ready/kube_controller_replicas == 0)) * 5",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ controller }}",
-          "refId": "E"
         }
       ],
       "title": "Status",
-      "tooltip": {
-        "extraInfo": "",
-        "freezeOnClick": true,
-        "items": [],
-        "show": true,
-        "showExtraInfo": false,
-        "showItems": false
-      },
-      "type": "flant-statusmap-panel",
-      "useMax": true,
-      "usingPagination": false,
-      "xAxis": {
-        "show": true
-      },
-      "yAxis": {
-        "maxWidth": -1,
-        "minWidth": -1,
-        "show": true
-      },
-      "yAxisSort": "metrics",
-      "yLabel": {
-        "delimiter": "",
-        "labelTemplate": "",
-        "usingSplitLabel": false
-      }
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "StatefulSet",
+            "renamePattern": "sts"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "DaemonSet",
+            "renamePattern": "ds"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "Deployment",
+            "renamePattern": "deploy"
+          }
+        }
+      ],
+      "type": "status-history"
     },
     {
       "aliasColors": {},
@@ -1199,7 +1177,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -1773,7 +1751,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -1912,7 +1890,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -2042,7 +2020,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -2113,7 +2091,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "sum by (controller)\n  (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"}\n    * on (pod) group_left()\n    sum by (pod) (avg_over_time(container_memory_working_set_bytes:without_kmem{node=~\"$node\", namespace=\"$namespace\", container!=\"POD\"}[$__rate_interval]))\n  )",
           "format": "time_series",
@@ -2124,7 +2102,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "sum\n  (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"}\n    * on (pod) group_left()\n    sum by (pod) (avg_over_time(container_memory_working_set_bytes:without_kmem{node=~\"$node\", namespace=\"$namespace\", container!=\"POD\"}[$__rate_interval]))\n  )",
           "format": "time_series",
@@ -2361,7 +2339,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "sum by (controller)\n  (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"}\n    * on (namespace, pod) group_left()\n    sum by (namespace, pod)\n      (\n        (\n          sum by(namespace, pod, container) (avg_over_time(kube_pod_container_resource_requests{resource=\"memory\",unit=\"byte\",node=~\"$node\", namespace=\"$namespace\"}[$__rate_interval]))\n          -\n          sum by(namespace, pod, container) (avg_over_time(container_memory_working_set_bytes:without_kmem{node=~\"$node\", container!=\"POD\", namespace=\"$namespace\"}[$__rate_interval]))\n        ) > 0\n      )\n  )",
           "format": "time_series",
@@ -2372,7 +2350,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "sum\n  (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller_type=~\"$controller_type\", controller=~\"$controller\"}\n    * on (namespace, pod) group_left()\n    sum by (namespace, pod)\n      (\n        (\n          sum by(namespace, pod, container) (avg_over_time(kube_pod_container_resource_requests{resource=\"memory\",unit=\"byte\",node=~\"$node\", namespace=\"$namespace\"}[$__rate_interval]))\n          -\n          sum by(namespace, pod, container) (avg_over_time(container_memory_working_set_bytes:without_kmem{node=~\"$node\", container!=\"POD\", namespace=\"$namespace\"}[$__rate_interval]))\n        ) > 0\n      )\n  )",
           "format": "time_series",
@@ -2533,7 +2511,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -2728,7 +2706,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -2947,7 +2925,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -3164,7 +3142,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -3486,7 +3464,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
