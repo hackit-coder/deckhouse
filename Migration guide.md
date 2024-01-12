@@ -107,21 +107,21 @@
 
 Для применения механизма <b>PSA</b> c политикой <b>restricted</b> необходимо в поле labels для манифеста Namespace указать значения:
 
-pod-security.kubernetes.io/enforce: restricted
+`pod-security.kubernetes.io/enforce: restricted`
 
-pod-security.kubernetes.io/enforce-version: v1.25
+`pod-security.kubernetes.io/enforce-version: v1.25`
 
-pod-security.kubernetes.io/audit: restricted
+`pod-security.kubernetes.io/audit: restricted`
 
-pod-security.kubernetes.io/audit-version: v1.25
+`pod-security.kubernetes.io/audit-version: v1.25`
 
-pod-security.kubernetes.io/warn: restricted
+`pod-security.kubernetes.io/warn: restricted`
 
-pod-security.kubernetes.io/warn-version: v1.25
+`pod-security.kubernetes.io/warn-version: v1.25`
 
-Пример содержания podsecurity-restricted.yaml :
+Пример содержания `podsecurity-restricted.yaml`:
 
-apiVersion: v1
+```apiVersion: v1
 
 kind: Namespace
 
@@ -143,11 +143,13 @@ metadata:
 
     pod-security.kubernetes.io/warn-version: v1.25
 
-В наборе конфигурации DropApp (conf/k8s/base) для всех рабочих нагрузок, содержащих контейнеры, требуется:
+```
 
-1. Для каждого контейнера (в том числе initContainers и ephemeralContainers) в составе пода добавить поле SecurityContext :
+В наборе конфигурации `(conf/k8s/base)` для всех рабочих нагрузок, содержащих контейнеры, требуется:
 
-``˜˜˜``
+1. Для каждого контейнера (в том числе `initContainers` и `ephemeralContainers`) в составе пода добавить поле `SecurityContext`:
+
+```
 
 kind: Deployment
 
@@ -185,10 +187,10 @@ spec:
 
 ```
 
-1. Для каждого Deployment, StatefulSet, DaemonSet, Pod на уровень spec добавить:
+1. Для каждого `Deployment`, `StatefulSet`, `DaemonSet`, `Pod` на уровень `spec` добавить:
 
-˜˜˜
 
+```
 kind: Deployment
 
 spec:
@@ -204,7 +206,6 @@ spec:
 seccompProfile:
 
           type: RuntimeDefault
-
 ```
 
 Ниже представлен список того, что запрещает политика `restricted`
