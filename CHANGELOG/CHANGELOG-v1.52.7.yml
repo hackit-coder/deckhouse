@@ -1,5 +1,0 @@
-linstor:
-  fixes:
-    - summary: Improved symlink handling for devices.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/6187
-

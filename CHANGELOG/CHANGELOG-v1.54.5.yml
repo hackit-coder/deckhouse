@@ -1,5 +1,0 @@
-dhctl:
-  fixes:
-    - summary: Fix static cluster destroy.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/6597
-

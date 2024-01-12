@@ -1,5 +1,0 @@
-flant-integration:
-  fixes:
-    - summary: Fix grafana agent config.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/6763
-

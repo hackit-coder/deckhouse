@@ -1,5 +1,0 @@
-deckhouse-controller:
-  fixes:
-    - summary: Fix config values for dynamically enabled modules.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/7036
-

@@ -1,5 +1,0 @@
-deckhouse-controller:
-  fixes:
-    - summary: Do not purge unknown helm releases.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/5918
-

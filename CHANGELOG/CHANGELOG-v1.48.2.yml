@@ -1,9 +1,0 @@
-admission-policy-engine:
-  fixes:
-    - summary: Fix constraint exporter - avoid duplications and invalid resource handling.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/5240
-cloud-provider-openstack:
-  fixes:
-    - summary: Remove duplicates from images list in `cloud-data-discoverer`.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/5241
-

@@ -1,6 +1,0 @@
-prometheus:
-  fixes:
-    - summary: Switch Grafana to using the Ubuntu container.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/5962
-      impact: Grafana will restart.
-

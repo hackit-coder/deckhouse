@@ -1,5 +1,0 @@
-cloud-provider-yandex:
-  fixes:
-    - summary: Fix working in hybrid environments.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/6094
-

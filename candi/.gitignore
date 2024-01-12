@@ -1,8 +1,0 @@
-### Terraform ###
-# .tfstate files
-*.tfstate
-*.tfstate.*
-
-# .tfvars
-*.auto.tfvars.json
-*.auto.tfvars

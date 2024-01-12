@@ -1,5 +1,0 @@
-candi:
-  fixes:
-    - summary: Bump gophercloud/utils version.
-      pull_request: https://github.com/deckhouse/deckhouse/pull/4472
-
