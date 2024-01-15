@@ -1334,7 +1334,7 @@ spec:
 
 1. Скачайте и установите Shifter, введите команду:
 
-`curl -OL https://dzo.sw.sbc.space/nexus-ci/repository/sbt_maven/ru/sbt/dapp/shifter/v0.3.4/shifter-v0.3.4-distrib.zip`
+`curl -OL https:... #актуальная команда - путь`
 
 `cp ./shifter_darwin_amd64 /usr/local/bin/shifter`
 
@@ -1398,7 +1398,7 @@ cat *.yaml \
 
 | yq e 'del(.spec.clusterIPs)' - \
 
->> dapp-app-manifest.yaml
+>> k8s-app-manifest.yaml
 
 ```
 
@@ -1444,7 +1444,7 @@ cat *.yaml \
 
 | yq e 'del(.spec.clusterIPs)' - \
 
->> dapp-app-manifest.yaml
+>> k8s-app-manifest.yaml
 
 1. Экспортируйте <b>openshift project</b> в K8s namespace:
 
@@ -1470,12 +1470,12 @@ yq e '.apiVersion |= "v1"' - \
 
 | yq e 'del(.status)' - \
 
-> dapp-namespace-manifest.yaml
+> k8s-namespace-manifest.yaml
 
 ```
 
 1. Выполните деплоймент мигрируемого приложения в кластер K8s, при помощи команды:
 
-`kubectl apply -f dapp-namespace-manifest.yaml`
+`kubectl apply -f k8s-namespace-manifest.yaml`
 
-`kubectl apply -f dapp-app-manifest.yaml`
+`kubectl apply -f k8s-app-manifest.yaml`
