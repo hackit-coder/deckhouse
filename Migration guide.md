@@ -101,7 +101,7 @@
 
 [<u><b>Поддержка Pod Security Admission</b></u>]()
 
-Для реализации требований надежности и безопасности k8s аналогичных настройкам OpenShift на всех кластерах Kubernetes, перед развертыванием приложений необходимо активировать механизм <b>Pod Security Admission</b> (<b>PSA</b>) с политикой <b>restricted</b>. При миграции необходимо следовать указаниям стандартов [<u>STD-7</u>](https://sberworks.ru/wiki/pages/viewpage.action?pageId=37249655 "https://sberworks.ru/wiki/pages/viewpage.action?pageId=37249655") и [<u>STD-22</u>](https://sberworks.ru/wiki/pages/viewpage.action?pageId=132956909 "https://sberworks.ru/wiki/pages/viewpage.action?pageId=132956909").
+Для реализации требований надежности и безопасности k8s аналогичных настройкам OpenShift на всех кластерах Kubernetes, перед развертыванием приложений необходимо активировать механизм <b>Pod Security Admission</b> (<b>PSA</b>) с политикой <b>restricted</b>.
 
 <b>Pod Security Admission</b> с активированным стандартом <b>restricted</b> запрещает запускать поды в привилегированном и root режиме, запрещает монтировать определенные volumes, использовать linux namespace хоста машины и т.д. Полный список с разрешенными значениями полей представлен в данном сценарии.
 
