@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -20,15 +23,16 @@
   },
   "editable": false,
   "fiscalYearStartMonth": 0,
-  "gnetId": null,
   "graphTooltip": 1,
-  "id": 23,
-  "iteration": 1640791408237,
+  "iteration": 1705599706433,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "description": "Note that this table shows the average values for the entire period selected in the dashboard. Consequently, it may contain information about Pods or namespaces that were changed or deleted during the selected period.",
       "fieldConfig": {
         "defaults": {
@@ -36,9 +40,9 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
             "displayMode": "auto",
             "filterable": false,
+            "inspect": false,
             "minWidth": 70
           },
           "decimals": 2,
@@ -89,8 +93,7 @@
                 ]
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               },
               {
                 "id": "custom.minWidth",
@@ -113,8 +116,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               },
               {
                 "id": "custom.width"
@@ -140,8 +142,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -164,8 +165,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               },
               {
                 "id": "mappings",
@@ -213,8 +213,7 @@
                 "value": 3
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -237,8 +236,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -261,8 +259,7 @@
                 "value": 3
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -285,8 +282,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -309,8 +305,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -333,8 +328,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -357,8 +351,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -381,8 +374,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -405,8 +397,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -429,8 +420,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -453,8 +443,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -477,20 +466,19 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               },
               {
                 "id": "mappings",
                 "value": [
                   {
-                    "type": "value",
                     "options": {
                       "-1": {
-                        "text": "hostNet",
-                        "index": 0
+                        "index": 0,
+                        "text": "hostNet"
                       }
-                    }
+                    },
+                    "type": "value"
                   }
                 ]
               }
@@ -515,20 +503,19 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               },
               {
                 "id": "mappings",
                 "value": [
                   {
-                    "type": "value",
                     "options": {
                       "-1": {
-                        "text": "hostNet",
-                        "index": 0
+                        "index": 0,
+                        "text": "hostNet"
                       }
-                    }
+                    },
+                    "type": "value"
                   }
                 ]
               }
@@ -553,8 +540,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -577,8 +563,7 @@
                 "value": 2
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -597,8 +582,7 @@
                 "value": "short"
               },
               {
-                "id": "custom.align",
-                "value": null
+                "id": "custom.align"
               }
             ]
           },
@@ -625,10 +609,17 @@
       "id": 2,
       "links": [],
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.6",
+      "pluginVersion": "8.5.13",
       "targets": [
         {
           "expr": "sum by (pod) (avg_over_time(kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\", pod=~\"$pod\"}[$__range]) )",
@@ -845,154 +836,114 @@
       "type": "table"
     },
     {
-      "cards": {
-        "cardHSpacing": 2,
-        "cardMinWidth": 5,
-        "cardRound": null,
-        "cardVSpacing": 2
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
       },
-      "color": {
-        "cardColor": "#b4ff00",
-        "colorScale": "sqrt",
-        "colorScheme": "interpolateGnYlRd",
-        "defaultColor": "#757575",
-        "exponent": 0.5,
-        "mode": "discrete",
-        "thresholds": [
-          {
-            "color": "#99440a",
-            "tooltip": "Some container is not running",
-            "value": "5"
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          {
-            "color": "#e5ac0e",
-            "tooltip": "Pending",
-            "value": "1"
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 1
           },
-          {
-            "color": "rgb(215, 215, 215)",
-            "tooltip": "Unknown",
-            "value": "2"
-          },
-          {
-            "color": "#bf1b00",
-            "tooltip": "Failed",
-            "value": "3"
-          },
-          {
-            "color": "#e0f9d7",
-            "tooltip": "Succeeded",
-            "value": "4"
-          },
-          {
-            "color": "#508642",
-            "tooltip": "Running",
-            "value": "0"
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "Ready"
+                },
+                "1": {
+                  "color": "#99440a",
+                  "index": 1,
+                  "text": "Some containers not running or ready"
+                },
+                "2": {
+                  "color": "#e5ac0e",
+                  "index": 2,
+                  "text": "Pending"
+                },
+                "3": {
+                  "color": "#d7d7d7",
+                  "index": 3,
+                  "text": "Unknown"
+                },
+                "4": {
+                  "color": "#bf1b00",
+                  "index": 4,
+                  "text": "Failed"
+                },
+                "5": {
+                  "color": "#e0f9d7",
+                  "index": 5,
+                  "text": "Succeeded"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
           }
-        ]
+        },
+        "overrides": []
       },
-      "datasource": "$ds_prometheus",
       "gridPos": {
         "h": 8,
         "w": 24,
         "x": 0,
         "y": 7
       },
-      "highlightCards": true,
       "id": 53,
-      "legend": {
-        "show": true
-      },
       "links": [],
-      "nullPointMode": "as empty",
-      "pageSize": 15,
-      "seriesFilterIndex": -1,
-      "statusmap": {
-        "ConfigVersion": "v1"
+      "options": {
+        "colWidth": 0.9,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "targets": [
         {
-          "expr": "(\n  min by (pod) (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n    * on (pod) group_right()\n    min_over_time(kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$pod\", phase=\"Running\"}[$__rate_interval])\n  ) == 1\n) * 0",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
+          "expr": "min by (pod) (\n  kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n  * on (pod) group_right()\n  (\n    (\n      (min by (pod, phase) (label_replace(min_over_time(kube_pod_container_status_ready{namespace=\"$namespace\", pod=~\"$pod\"}[$__rate_interval]), \"phase\", \"Ready\", \"\", \"\")) == 1) * 0 + 0\n    )\n    or on(pod)\n    (\n      (min by (pod, phase) (min_over_time(kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$pod\"}[$__rate_interval])) == 1) * 0\n      + on(phase) group_left()\n      (\n        label_replace(vector(1), \"phase\", \"Running\", \"\", \"\") or\n        label_replace(vector(2), \"phase\", \"Pending\", \"\", \"\") or\n        label_replace(vector(3), \"phase\", \"Unknown\", \"\", \"\") or\n        label_replace(vector(4), \"phase\", \"Failed\", \"\", \"\") or\n        label_replace(vector(5), \"phase\", \"Succeeded\", \"\", \"\")\n      )\n    )\n  )  \n)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
           "legendFormat": "{{ pod }}",
           "refId": "A"
-        },
-        {
-          "expr": "(\n  min by (pod, phase) (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n    * on (pod) group_right()\n    min_over_time(kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$pod\", phase=\"Pending\"}[$__rate_interval])\n  ) == 1\n) * 1",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
-          "refId": "B"
-        },
-        {
-          "expr": "(\n  min by (pod, phase) (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n    * on (pod) group_right()\n    min_over_time(kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$pod\", phase=\"Unknown\"}[$__rate_interval])\n  ) == 1\n) * 2",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
-          "refId": "C"
-        },
-        {
-          "expr": "(\n  min by (pod, phase) (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n    * on (pod) group_right()\n    min_over_time(kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$pod\", phase=\"Failed\"}[$__rate_interval])\n  ) == 1\n) * 3",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
-          "refId": "D"
-        },
-        {
-          "expr": "(\n  min by (pod, phase) (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n    * on (pod) group_right()\n    min_over_time(kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$pod\", phase=\"Succeeded\"}[$__rate_interval])\n  ) == 1\n) * 4",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
-          "refId": "E"
-        },
-        {
-          "expr": "(\n  min by (pod) (\n    kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}\n    * on (pod) group_right()\n    min by (pod) (min_over_time(kube_pod_container_status_ready{namespace=\"$namespace\", pod=~\"$pod\"}[$__rate_interval]))\n  ) == 0\n) + 5",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
-          "refId": "F"
         }
       ],
       "title": "Status",
-      "tooltip": {
-        "extraInfo": "",
-        "freezeOnClick": true,
-        "items": [],
-        "show": true,
-        "showExtraInfo": false,
-        "showItems": false
-      },
-      "type": "flant-statusmap-panel",
-      "useMax": true,
-      "usingPagination": false,
-      "xAxis": {
-        "show": true
-      },
-      "yAxis": {
-        "maxWidth": -1,
-        "minWidth": -1,
-        "show": true
-      },
-      "yAxisSort": "metrics",
-      "yLabel": {
-        "delimiter": "",
-        "labelTemplate": "",
-        "usingSplitLabel": false
-      }
+      "type": "status-history"
     },
     {
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "decimals": 0,
       "description": "The number of Pod restarts",
       "fieldConfig": {
@@ -1034,7 +985,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.6",
+      "pluginVersion": "8.5.13",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1065,9 +1016,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Pods restarts",
       "tooltip": {
         "shared": true,
@@ -1076,9 +1025,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1088,27 +1035,25 @@
           "format": "short",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1125,7 +1070,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1165,7 +1112,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.6",
+      "pluginVersion": "8.5.13",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1198,9 +1145,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Usage by pod",
       "tooltip": {
         "shared": true,
@@ -1209,9 +1154,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1220,22 +1163,17 @@
           "format": "short",
           "label": "cores",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1243,7 +1181,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "The total value may not equal the sum of system and user times because of the kernel's cgroup accounting peculiarities. Read more here: https://www.kernel.org/doc/Documentation/cgroup-v1/cpuacct.txt",
       "fieldConfig": {
         "defaults": {
@@ -1282,7 +1222,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.6",
+      "pluginVersion": "8.5.13",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1330,9 +1270,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Usage by state",
       "tooltip": {
         "shared": true,
@@ -1341,9 +1279,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1352,22 +1288,17 @@
           "format": "short",
           "label": "cores",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1375,7 +1306,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph shows the requested CPU resources higher than the actual CPU consumption. In other words, it shows CPU resources that can be \"freed\" without affecting the service.",
       "fieldConfig": {
         "defaults": {
@@ -1414,7 +1347,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.6",
+      "pluginVersion": "8.5.13",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1445,9 +1378,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Over-requested by pod",
       "tooltip": {
         "shared": true,
@@ -1456,9 +1387,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1467,22 +1396,17 @@
           "format": "short",
           "label": "cores",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1490,7 +1414,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph shows the requested CPU resources lower than the actual CPU consumption. In other words, it shows CPU resources that need to be \"reserved\" for the service to run smoothly.",
       "fieldConfig": {
         "defaults": {
@@ -1529,7 +1455,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.6",
+      "pluginVersion": "8.5.13",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1562,9 +1488,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Under-requested by pod",
       "tooltip": {
         "shared": true,
@@ -1573,9 +1497,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1584,22 +1506,17 @@
           "format": "short",
           "label": "cores",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1607,7 +1524,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "The absence of data on the graph means that container resources are not set",
       "fieldConfig": {
         "defaults": {
@@ -1679,9 +1598,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Throttling",
       "tooltip": {
         "shared": true,
@@ -1690,39 +1607,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "short",
           "label": "cores",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1736,7 +1648,9 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "uid": "$ds_prometheus"
+          },
           "description": "The total value may not equal the sum of system and user times because of the kernel's cgroup accounting peculiarities. Read more here: https://www.kernel.org/doc/Documentation/cgroup-v1/cpuacct.txt",
           "fill": 0,
           "gridPos": {
@@ -1819,9 +1733,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "$pod",
           "tooltip": {
             "shared": true,
@@ -1830,9 +1742,7 @@
           },
           "type": "graph",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1841,22 +1751,17 @@
               "format": "short",
               "label": "cores",
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         }
       ],
@@ -1865,7 +1770,10 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1879,7 +1787,9 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "uid": "$ds_prometheus"
+          },
           "description": "The total value may not equal the sum of system and user times because of the kernel's cgroup accounting peculiarities. Read more here: https://www.kernel.org/doc/Documentation/cgroup-v1/cpuacct.txt",
           "fill": 1,
           "gridPos": {
@@ -1952,9 +1862,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "$pod",
           "tooltip": {
             "shared": true,
@@ -1963,9 +1871,7 @@
           },
           "type": "graph",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1974,22 +1880,17 @@
               "format": "short",
               "label": "cores",
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         }
       ],
@@ -1998,7 +1899,10 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2015,7 +1919,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -2086,9 +1992,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Usage by pod",
       "tooltip": {
         "shared": true,
@@ -2097,33 +2001,25 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -2131,7 +2027,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "The Working set bytes metric is the actual memory used by the container, as it includes active file memory. When its value approaches the limit, the container can be killed by the OOMKiller. This value can be higher than the sum RSS and Cache since not all active file memory is Cache.",
       "fieldConfig": {
         "defaults": {
@@ -2233,9 +2131,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Usage by state",
       "tooltip": {
         "shared": true,
@@ -2244,33 +2140,25 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -2278,7 +2166,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph shows the requested Memory resources higher than the actual Memory consumption. In other words, it shows Memory resources that can be \"freed\" without affecting the service.",
       "fieldConfig": {
         "defaults": {
@@ -2348,9 +2238,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Over-requested by pod",
       "tooltip": {
         "shared": true,
@@ -2359,34 +2247,27 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "bytes",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -2394,7 +2275,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph shows the requested Memory resources higher than the actual Memory consumption. In other words, it shows Memory resources that need to be \"reserved\" for the service to run smoothly.",
       "fieldConfig": {
         "defaults": {
@@ -2464,9 +2347,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Under-requested by pod",
       "tooltip": {
         "shared": true,
@@ -2475,39 +2356,35 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "bytes",
           "label": "",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2521,7 +2398,9 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "uid": "$ds_prometheus"
+          },
           "description": "The Working set bytes metric is the actual memory used by the container, as it includes active file memory. When its value approaches the limit, the container can be killed by the OOMKiller. This value can be higher than the sum RSS and Cache since not all active file memory is Cache.",
           "fill": 1,
           "gridPos": {
@@ -2661,9 +2540,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "$pod",
           "tooltip": {
             "shared": true,
@@ -2672,33 +2549,25 @@
           },
           "type": "graph",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "bytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": false
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         }
       ],
@@ -2707,7 +2576,10 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2720,14 +2592,19 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "This graph shows Network Receive (except for the hostNetwork Pods)",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
-            "axisPlacement": "auto",
             "axisLabel": "",
+            "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "bars",
             "fillOpacity": 100,
@@ -2769,8 +2646,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2798,19 +2674,14 @@
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "transparent"
+                  "fixedColor": "transparent",
+                  "mode": "fixed"
                 }
               }
             ]
           }
         ]
       },
-      "datasource": {
-        "uid": "${ds_prometheus}",
-        "type": "prometheus"
-      },
-      "description": "This graph shows Network Receive (except for the hostNetwork Pods)",
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -2856,21 +2727,24 @@
           "refId": "C"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Receive",
       "transformations": [],
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
+      "description": "This graph shows Network Transmit (except for the hostNetwork Pods)",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
-            "axisPlacement": "auto",
             "axisLabel": "",
+            "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "bars",
             "fillOpacity": 100,
@@ -2912,8 +2786,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2941,19 +2814,14 @@
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "transparent"
+                  "fixedColor": "transparent",
+                  "mode": "fixed"
                 }
               }
             ]
           }
         ]
       },
-      "datasource": {
-        "uid": "${ds_prometheus}",
-        "type": "prometheus"
-      },
-      "description": "This graph shows Network Transmit (except for the hostNetwork Pods)",
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -2999,15 +2867,16 @@
           "refId": "C"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Transmit",
       "transformations": [],
       "type": "timeseries"
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3024,7 +2893,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -3093,9 +2964,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Read",
       "tooltip": {
         "shared": true,
@@ -3104,33 +2973,25 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "iops",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -3138,7 +2999,9 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -3207,9 +3070,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Write",
       "tooltip": {
         "shared": true,
@@ -3218,38 +3079,33 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "iops",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3266,7 +3122,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph does not show any localstorage-related information due to incorrectly calculating the occupied space on localstorage disks",
       "fieldConfig": {
         "defaults": {
@@ -3329,9 +3187,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "PVC Provisioned (except local storage classes)",
       "tooltip": {
         "shared": true,
@@ -3340,33 +3196,25 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -3374,7 +3222,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph does not show any localstorage-related information due to incorrectly calculating the occupied space on localstorage disks",
       "fieldConfig": {
         "defaults": {
@@ -3437,9 +3287,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "PVC Usage (except local storage classes)",
       "tooltip": {
         "shared": true,
@@ -3448,33 +3296,25 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -3482,7 +3322,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "uid": "$ds_prometheus"
+      },
       "description": "This graph does not show any localstorage-related information due to incorrectly calculating the occupied space on localstorage disks",
       "fieldConfig": {
         "defaults": {
@@ -3546,9 +3388,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "PVC Usage in % (except local storage classes)",
       "tooltip": {
         "shared": true,
@@ -3557,38 +3397,33 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percentunit",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3598,14 +3433,15 @@
       "id": 88,
       "panels": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "uid": "$ds_prometheus"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
                 "mode": "thresholds"
               },
               "custom": {
-                "align": null,
                 "displayMode": "auto"
               },
               "decimals": 2,
@@ -3615,8 +3451,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3638,8 +3473,7 @@
                     "value": "Time"
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3662,8 +3496,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3686,8 +3519,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3710,8 +3542,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3734,8 +3565,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3758,8 +3588,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3782,8 +3611,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3802,8 +3630,7 @@
                     "value": "short"
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3826,8 +3653,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3850,8 +3676,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               },
@@ -3874,8 +3699,7 @@
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   }
                 ]
               }
@@ -4005,7 +3829,9 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "uid": "$ds_prometheus"
+          },
           "description": "This graph does not show any localstorage-related information due to incorrectly calculating the occupied space on localstorage disks",
           "fill": 1,
           "fillGradient": 0,
@@ -4080,9 +3906,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "$persistentvolumeclaim",
           "tooltip": {
             "shared": true,
@@ -4091,33 +3915,25 @@
           },
           "type": "graph",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "bytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": false
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         }
       ],
@@ -4126,7 +3942,7 @@
     }
   ],
   "refresh": "30s",
-  "schemaVersion": 32,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "main"
@@ -4139,8 +3955,6 @@
           "text": "default",
           "value": "default"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Prometheus",
@@ -4164,10 +3978,11 @@
             "$__all"
           ]
         },
-        "datasource": "$ds_prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$ds_prometheus"
+        },
         "definition": "label_values(kubernetes_build_info, node)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Node",
@@ -4188,16 +4003,16 @@
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "candi-dashboard-stage",
-          "value": "candi-dashboard-stage"
+          "text": "d8-monitoring",
+          "value": "d8-monitoring"
         },
-        "datasource": "$ds_prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$ds_prometheus"
+        },
         "definition": "label_values(kube_pod_info{node=~\"$node\"}, namespace)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Namespace",
@@ -4218,16 +4033,16 @@
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "sts/postgres",
-          "value": "sts/postgres"
+          "text": "deploy/grafana-v10",
+          "value": "deploy/grafana-v10"
         },
-        "datasource": "$ds_prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$ds_prometheus"
+        },
         "definition": "label_values(kube_controller_pod{node=~\"$node\", namespace=~\"$namespace\"}, controller)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Controller",
@@ -4258,10 +4073,11 @@
             "$__all"
           ]
         },
-        "datasource": "$ds_prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$ds_prometheus"
+        },
         "definition": "label_values(kube_controller_pod{node=~\"$node\", namespace=\"$namespace\", controller=\"$controller\"}, pod)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Pod",
@@ -4292,10 +4108,11 @@
             "$__all"
           ]
         },
-        "datasource": "$ds_prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$ds_prometheus"
+        },
         "definition": "query_result(max_over_time(kube_pod_spec_volumes_persistentvolumeclaims_info{node=~\"$node\", namespace=\"$namespace\", pod=~\"$pod\"}[$__range]))",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": "PersistentVolumeClaim",
