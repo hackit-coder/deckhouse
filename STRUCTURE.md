@@ -1,6 +1,8 @@
 
 Структура перекликается [со схемой](https://deckhouse.ru/scheme/)
 
+По блокам дать ссылки в таблице
+
 Уточнить по поводу платформы Deckhouse (software ecosystem) и Deckhouse Kubernetes Platform
 
 Разнести докуменртацию от Экосистемы
@@ -9,7 +11,10 @@
 
 # Инфраструктура и ее значение
 
-## Экосистема Deckhouse
+## Deckhouse
+
+[Блочная система предоставления документации по типу Ранчера на каждое решение](https://rancher.com/docs/)
+
 
 ## Инфраструктурные решения
 
@@ -89,13 +94,13 @@
 
 ## Сценарии виртуализации в Deckhouse
 
-# Service mash и его применение
+# Service mesh и его применение
 
-## Service mash: сценарии
+## Service mesh: сценарии
 
-## Использование Service mash в Deckhouse
+## Использование Service mesh в Deckhouse
 
-## Пример использования Service mash в Deckhouse
+## Пример использования Service mesh в Deckhouse
 
 # Инструментарий CI/CD и его применение
 
