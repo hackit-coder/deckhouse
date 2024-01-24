@@ -112,7 +112,9 @@
 
 ## Инструменты CI/CD для Deckhouse
 
-# OpenVPN и его использование (есть такой вопрос - его можно в FAQ и дать [ссылку](https://flant.slack.com/archives/C2MCP33AB/p1706016978578439)
+# OpenVPN и его использование
+
+(есть такой вопрос - его можно в FAQ и дать [ссылку](https://flant.slack.com/archives/C2MCP33AB/p1706016978578439)
 
 ## OpenVPN: основные принципы работы и применения
 
