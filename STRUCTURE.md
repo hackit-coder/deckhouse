@@ -44,9 +44,11 @@
 
 ### PaaS
 
+### EaaS
+
 ### SaaS
 
-### DaaS
+### DaaS (Дэсктоп)
 
 # Deckhouse Kubernetes Platform
 
@@ -125,6 +127,12 @@
 ## Резервное копирование в Deckhouse
 
 ## Стратегии резервного копирования данных в Deckhouse
+
+## Storage
+
+### Используемые storage (внутри описать используемые SDS - на базе DRBD, Seph, Object Storage)
+
+### Настройка и оптимизация
 
 # Troubleshooting
 
