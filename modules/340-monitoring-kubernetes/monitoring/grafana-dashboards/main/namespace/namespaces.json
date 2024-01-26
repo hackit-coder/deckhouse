@@ -37,6 +37,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "displayMode": "auto",
             "filterable": false,
             "inspect": false,
@@ -2072,8 +2073,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2265,8 +2265,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3060,8 +3059,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4011,8 +4009,8 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": "/Total/"
+              "id": "byName",
+              "options": "Total"
             },
             "properties": [
               {
@@ -4055,7 +4053,9 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -4140,8 +4140,8 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": "/Total/"
+              "id": "byName",
+              "options": "Total"
             },
             "properties": [
               {
@@ -4184,7 +4184,9 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -4281,7 +4283,9 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",

@@ -858,9 +858,13 @@
             "fillOpacity": 100,
             "lineWidth": 1
           },
+          "decimals": 0,
+          "displayName": "availability",
           "mappings": [],
+          "max": 100,
+          "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "transparent",
@@ -2564,7 +2568,7 @@
                 "id": "custom.stacking",
                 "value": {
                   "group": false,
-                  "mode": "normal"
+                  "mode": "none"
                 }
               },
               {
@@ -3036,7 +3040,7 @@
                     "id": "custom.stacking",
                     "value": {
                       "group": false,
-                      "mode": "normal"
+                      "mode": "none"
                     }
                   },
                   {
@@ -3217,7 +3221,7 @@
             "h": 9,
             "w": 6,
             "x": 0,
-            "y": 103
+            "y": 67
           },
           "id": 44,
           "links": [],
@@ -3942,8 +3946,8 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": "/Total/"
+              "id": "byName",
+              "options": "controller"
             },
             "properties": [
               {
@@ -3986,7 +3990,9 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -4082,8 +4088,8 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": "/Total/"
+              "id": "byName",
+              "options": "controller"
             },
             "properties": [
               {
@@ -4126,7 +4132,9 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -4223,7 +4231,9 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "sortBy": "Mean",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -4278,8 +4288,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4707,8 +4716,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
