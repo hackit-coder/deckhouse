@@ -4,6 +4,7 @@ modules: модули
 module: модуль
 deckhouse: deckhouse
 documentation: документация
+modules_documentation: Документация модулей
 core: ядро
 default_value: по умолчанию
 platform: платформа
@@ -41,3 +42,4 @@ boolean: булевый
 of_boolean: булевых значений
 version: версия
 version_of_schema: Версия схемы
+required_value_sentence: Обязательный параметр

@@ -33,6 +33,9 @@ gitWorktree:
 # rust proxy settings
 {{- $_ := set . "CRATESPROXY" (env "CRATESPROXY") }}
 
+# npm proxy settings
+{{- $_ := set . "NPMPROXY" (env "NPMPROXY") }}
+
 ---
 {{- define "base components" }}
   - name: "Install openssl"
@@ -680,6 +683,7 @@ context: {{ .ModulePath }}modules/{{ .ModulePriority }}-{{ .ModuleName }}/images
 dockerfile: Dockerfile
 args:
   BASE_ALPINE: {{ .Images.BASE_ALPINE }}
+  BASE_ALT_P101: {{ .Images.BASE_ALT_P101 }}
   BASE_RUST: {{ .Images.BASE_RUST }}
   BASE_GOLANG_ALPINE: {{ .Images.BASE_GOLANG_ALPINE }}
   BASE_GOLANG_16_ALPINE: {{ .Images.BASE_GOLANG_16_ALPINE }}
@@ -708,6 +712,7 @@ args:
   SOURCE_REPO: {{ .SOURCE_REPO }}
   GOPROXY: {{ .GOPROXY }}
   CRATESPROXY: {{ .CRATESPROXY }}
+  NPMPROXY: {{ .NPMPROXY }}
   {{- if not (has (list .ModuleName .ImageName | join "/") (list "common/distroless")) }}
 dependencies:
 - image: common/distroless
@@ -760,7 +765,7 @@ dependencies:
   {{- $_ := set $ctx "SOURCE_REPO" $Root.SOURCE_REPO }}
   {{- $_ := set $ctx "GOPROXY" $Root.GOPROXY }}
   {{- $_ := set $ctx "CRATESPROXY" $Root.CRATESPROXY }}
-
+  {{- $_ := set $ctx "NPMPROXY" $Root.NPMPROXY }}
 ---
 {{ include "module_image_template" $ctx }}
   {{- range $ImageYamlMainfest := regexSplit "\n?---[ \t]*\n" (include "module_image_template" $ctx) -1 }}

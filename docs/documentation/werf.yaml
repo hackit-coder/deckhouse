@@ -1,5 +1,5 @@
 {{- if ne $.Env "development" -}}
-{{- $_ := set . "Env" "FE" }}
+{{- $_ := set . "Env" "EE" }}
 {{- end }}
 ---
 project: deckhouse-web
@@ -121,13 +121,6 @@ ansible:
       shell: |
         export MODULES_DIR=/src/modules
         bash ./modules_generate_ossinfo.sh
-      args:
-        executable: /bin/bash
-        chdir: /srv/jekyll-data/documentation/
-    - name: "Generate sidebars"
-      shell: |
-        export MODULES_DIR=modules_en
-        /bin/bash ./modules_make_data > _data/sidebars/modules.yml2 &&  sed '1,+4d' _data/sidebars/modules.yml >> _data/sidebars/modules.yml2  && mv -f _data/sidebars/modules.yml2 _data/sidebars/modules.yml
       args:
         executable: /bin/bash
         chdir: /srv/jekyll-data/documentation/

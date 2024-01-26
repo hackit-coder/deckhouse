@@ -3,7 +3,7 @@
 010-operator-prometheus-crd/ @nabokihms
 010-prometheus-crd/         @nabokihms
 015-admission-policy-engine/ @yalosev
-021-cni-cilium/             @RomanenkoDenys @apolovov
+021-cni-cilium/             @apolovov
 030-cloud-provider-openstack/ @RomanenkoDenys @name212
 030-cloud-provider-vsphere/ @RomanenkoDenys
 041-linstor/                @AleksZimin
@@ -41,7 +41,7 @@ cloud-controller-manager/   @RomanenkoDenys @name212
 csi/                        @AleksZimin
 deckhouse-controller/       @yalosev
 dhctl/                      @name212
-docs/                       @z9r5 @nabokihms @konstantin-axenov
+docs/                       @z9r5 @nabokihms @konstantin-axenov @MariaMakeeva
 helm_lib/                   @name212
-crds/                       @nabokihms @konstantin-axenov
-openapi/                    @nabokihms @konstantin-axenov
+crds/                       @nabokihms @konstantin-axenov @z9r5 @MariaMakeeva
+openapi/                    @nabokihms @konstantin-axenov @z9r5 @MariaMakeeva
