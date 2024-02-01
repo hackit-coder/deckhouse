@@ -3017,7 +3017,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (prometheus_tsdb_head_min_time{job=\"prometheus\",pod=\"$pod\"})",
               "format": "time_series",
@@ -3030,7 +3030,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "time() * 1000",
               "format": "time_series",
@@ -3042,7 +3042,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (prometheus_tsdb_head_max_time{job=\"prometheus\",pod=\"$pod\"})",
               "format": "time_series",
@@ -3199,7 +3199,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_head_gc_duration_seconds_sum{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -3356,7 +3356,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (prometheus_tsdb_blocks_loaded{job=\"prometheus\",pod=\"$pod\"})",
               "format": "time_series",
@@ -3543,7 +3543,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_reloads_total{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -3716,7 +3716,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_wal_fsync_duration_seconds_sum{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]) / rate(prometheus_tsdb_wal_fsync_duration_seconds_count{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -3730,7 +3730,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_wal_truncate_duration_seconds_sum{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]) / rate(prometheus_tsdb_wal_trunacte_duration_seconds_count{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -3918,7 +3918,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_wal_corruptions_total{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -3932,7 +3932,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_reloads_failures_total{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -3946,7 +3946,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "rate(prometheus_tsdb_head_series_not_found{job=\"prometheus\",instance=\"$Prometheus:9090\"}[10m])",
               "format": "time_series",
@@ -3960,7 +3960,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "rate(prometheus_tsdb_compactions_failed_total{job=\"prometheus\",instance=\"$Prometheus:9090\"}[10m])",
               "format": "time_series",
@@ -3974,7 +3974,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "rate(prometheus_tsdb_retention_cutoffs_failures_total{job=\"prometheus\",instance=\"$Prometheus:9090\"}[10m])",
               "format": "time_series",
@@ -3988,7 +3988,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "rate(prometheus_tsdb_checkpoint_creations_failed_total{job=\"prometheus\",instance=\"$Prometheus:9090\"}[10m])",
               "format": "time_series",
@@ -4002,7 +4002,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "rate(prometheus_tsdb_checkpoint_deletions_failed_total{job=\"prometheus\",instance=\"$Prometheus:9090\"}[10m])",
               "format": "time_series",
@@ -4175,7 +4175,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_compactions_total{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -4333,7 +4333,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_compaction_duration_seconds_sum{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -4520,7 +4520,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_time_retentions_total{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -4533,7 +4533,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_size_retentions_total{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -4644,7 +4644,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_compaction_chunk_range_seconds_sum{job=\"prometheus\",pod=\"$pod\"}[10m]) / rate(prometheus_tsdb_compaction_chunk_range_seconds_count{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -4755,7 +4755,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_tsdb_compaction_chunk_size_bytes_sum{job=\"prometheus\",pod=\"$pod\"}[10m]) / rate(prometheus_tsdb_compaction_chunk_samples_sum{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -4881,7 +4881,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (dpo) (rate(prometheus_tsdb_compaction_chunk_samples_sum{job=\"prometheus\",pod=\"$pod\"}[10m]) / rate(prometheus_tsdb_compaction_chunk_samples_count{job=\"prometheus\",pod=\"$pod\"}[10m]))",
               "format": "time_series",
@@ -5532,7 +5532,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod, alertmanager) (rate(prometheus_notifications_sent_total{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -5690,7 +5690,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod, alertmanager) (rate(prometheus_notifications_errors_total{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]) / rate(prometheus_notifications_sent_total{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -5848,7 +5848,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod, alertmanager) (rate(prometheus_notifications_latency_seconds_sum{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]) / rate(prometheus_notifications_latency_seconds_count{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -6006,7 +6006,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (prometheus_notifications_alertmanagers_discovered{job=\"prometheus\",pod=\"$pod\"})",
               "format": "time_series",
@@ -6164,7 +6164,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (rate(prometheus_notifications_dropped_total{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
               "format": "time_series",
@@ -6322,7 +6322,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (prometheus_notifications_queue_length{job=\"prometheus\",pod=\"$pod\"})",
               "format": "time_series",
@@ -6336,7 +6336,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P0D6E4079E36703EB"
+                "uid": "$ds_prometheus"
               },
               "expr": "max by (pod) (prometheus_notifications_queue_capacity{job=\"prometheus\",pod=\"$pod\"})",
               "format": "time_series",

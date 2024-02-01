@@ -39,7 +39,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -92,7 +92,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "sum(rate(cilium_errors_warnings_total{job=\"cilium-agent\",pod=~\"$pod\"}[$__rate_interval])) by (pod, level) * 60",
           "format": "time_series",
@@ -151,7 +151,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -209,7 +209,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "min(irate(cilium_process_cpu_seconds_total{job=\"cilium-agent\",pod=~\"$pod\"}[$__rate_interval])) by (pod) * 100",
           "format": "time_series",
@@ -220,7 +220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "avg(irate(cilium_process_cpu_seconds_total{job=\"cilium-agent\",pod=~\"$pod\"}[$__rate_interval])) by (pod) * 100",
           "format": "time_series",
@@ -231,7 +231,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "max(irate(cilium_process_cpu_seconds_total{job=\"cilium-agent\",pod=~\"$pod\"}[$__rate_interval])) by (pod) * 100",
           "format": "time_series",
@@ -285,7 +285,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -310,7 +310,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -437,7 +437,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -558,7 +558,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -687,7 +687,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "description": "BPF memory usage in the entire system including components not managed by Cilium.",
       "fieldConfig": {
@@ -738,7 +738,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "avg(cilium_bpf_maps_virtual_memory_max_bytes{job=\"cilium-agent\",pod=~\"$pod\"} + cilium_bpf_progs_virtual_memory_max_bytes{job=\"cilium-agent\",pod=~\"$pod\"})",
           "format": "time_series",
@@ -751,7 +751,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "max(cilium_bpf_maps_virtual_memory_max_bytes{job=\"cilium-agent\",pod=~\"$pod\"} + cilium_bpf_progs_virtual_memory_max_bytes{job=\"cilium-agent\",pod=~\"$pod\"})",
           "format": "time_series",
@@ -764,7 +764,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P0D6E4079E36703EB"
+            "uid": "$ds_prometheus"
           },
           "expr": "min(cilium_bpf_maps_virtual_memory_max_bytes{job=\"cilium-agent\",pod=~\"$pod\"} + cilium_bpf_progs_virtual_memory_max_bytes{job=\"cilium-agent\",pod=~\"$pod\"})",
           "format": "time_series",
@@ -826,7 +826,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "description": "Fill percentage of BPF maps, tagged by map name",
       "fieldConfig": {
@@ -924,7 +924,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -944,7 +944,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1049,7 +1049,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1154,7 +1154,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1259,7 +1259,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1364,7 +1364,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1469,7 +1469,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1571,7 +1571,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -1587,7 +1587,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "content": "",
       "fieldConfig": {
@@ -1615,7 +1615,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1720,7 +1720,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "decimals": 2,
       "fieldConfig": {
@@ -1827,7 +1827,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1932,7 +1932,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2035,7 +2035,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2140,7 +2140,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2245,7 +2245,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2347,7 +2347,7 @@
       "content": "",
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2374,7 +2374,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "decimals": 2,
       "fieldConfig": {
@@ -2480,7 +2480,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "decimals": 2,
       "fieldConfig": {
@@ -2586,7 +2586,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2690,7 +2690,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2794,7 +2794,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2893,7 +2893,7 @@
       "content": "",
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2920,7 +2920,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -3021,7 +3021,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -3145,7 +3145,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -3315,7 +3315,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -3485,7 +3485,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -3655,7 +3655,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -3809,7 +3809,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "decimals": null,
       "fieldConfig": {
@@ -3919,7 +3919,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4019,7 +4019,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4119,7 +4119,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4235,7 +4235,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4338,7 +4338,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4464,7 +4464,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4567,7 +4567,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4690,7 +4690,7 @@
       "content": "",
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4721,7 +4721,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4844,7 +4844,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -4950,7 +4950,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5077,7 +5077,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5183,7 +5183,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5322,7 +5322,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5441,7 +5441,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5554,7 +5554,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5686,7 +5686,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5825,7 +5825,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -5971,7 +5971,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6083,7 +6083,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6205,7 +6205,7 @@
       "content": "",
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6232,7 +6232,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "decimals": null,
       "fieldConfig": {
@@ -6336,7 +6336,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "decimals": null,
       "fieldConfig": {
@@ -6445,7 +6445,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6559,7 +6559,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6658,7 +6658,7 @@
       "content": "",
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6689,7 +6689,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6814,7 +6814,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6926,7 +6926,7 @@
       "content": "",
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -6953,7 +6953,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7058,7 +7058,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7163,7 +7163,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7268,7 +7268,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7373,7 +7373,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7477,7 +7477,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7580,7 +7580,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7683,7 +7683,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7785,7 +7785,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7892,7 +7892,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -7999,7 +7999,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -8106,7 +8106,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -8209,7 +8209,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -8312,7 +8312,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -8415,7 +8415,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P0D6E4079E36703EB"
+        "uid": "$ds_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -8527,7 +8527,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P0D6E4079E36703EB"
+          "uid": "$ds_prometheus"
         },
         "definition": "label_values(cilium_version, pod)",
         "hide": 0,
