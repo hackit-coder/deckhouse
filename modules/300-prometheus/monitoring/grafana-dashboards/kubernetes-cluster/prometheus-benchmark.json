@@ -30,7 +30,10 @@
   "panels": [
     {
       "collapsed": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -43,7 +46,10 @@
       "type": "row"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -111,7 +117,10 @@
       "type": "stat"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -179,7 +188,10 @@
       "type": "stat"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -243,7 +255,10 @@
       "type": "stat"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -308,7 +323,10 @@
     },
     {
       "collapsed": false,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -321,7 +339,10 @@
       "type": "row"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -591,7 +612,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -771,7 +795,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -862,7 +889,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -952,7 +982,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1042,7 +1075,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1169,7 +1205,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2109,7 +2148,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2395,7 +2437,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2805,7 +2850,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4901,7 +4949,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5380,7 +5431,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6357,7 +6411,10 @@
     },
     {
       "collapsed": true,
-      "datasource": "$ds_prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$ds_prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
