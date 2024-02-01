@@ -100,7 +100,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "editorMode": "code",
           "exemplar": false,
           "expr": "max by (pod, version) (prometheus_build_info{job=\"prometheus\", pod=\"$pod\"})",
@@ -171,7 +174,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "editorMode": "code",
           "exemplar": false,
           "expr": "max by (pod, revision) (prometheus_build_info{job=\"prometheus\", pod=\"$pod\"})",
@@ -242,7 +248,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (time() - process_start_time_seconds{job=\"prometheus\",pod=\"$pod\"})",
           "format": "time_series",
           "intervalFactor": 1,
@@ -309,7 +318,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (time() - prometheus_config_last_reload_success_timestamp_seconds{job=\"prometheus\",pod=\"$pod\"})",
           "format": "time_series",
           "intervalFactor": 1,
@@ -581,7 +593,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (process_resident_memory_bytes{job=\"prometheus\",pod=\"$pod\"})",
           "intervalFactor": 2,
           "legendFormat": "RSS",
@@ -590,7 +605,10 @@
           "step": 10
         },
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (go_memstats_next_gc_bytes{job=\"prometheus\",pod=\"$pod\"})",
           "intervalFactor": 2,
           "legendFormat": "Next GC",
@@ -599,7 +617,10 @@
           "step": 10
         },
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (go_memstats_alloc_bytes{job=\"prometheus\",pod=\"$pod\"})",
           "intervalFactor": 2,
           "legendFormat": "Allocated",
@@ -782,7 +803,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (rate(go_memstats_alloc_bytes_total{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
           "intervalFactor": 2,
           "legendFormat": "Allocated Bytes/s",
@@ -874,7 +898,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "editorMode": "code",
           "expr": "max by (pod) (irate(process_cpu_seconds_total{job=\"prometheus\",pod=\"$pod\"}[$__rate_interval]))",
           "intervalFactor": 2,
@@ -968,7 +995,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (prometheus_tsdb_symbol_table_size_bytes{job=\"prometheus\",pod=\"$pod\"})",
           "format": "time_series",
           "intervalFactor": 2,
@@ -1061,7 +1091,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (prometheus_tsdb_storage_blocks_bytes_total{job=\"prometheus\",pod=\"$pod\"} or prometheus_tsdb_storage_blocks_bytes{job=\"prometheus\",pod=\"$pod\"})",
           "format": "time_series",
           "intervalFactor": 2,
@@ -1184,7 +1217,10 @@
       "pluginVersion": "8.5.13",
       "targets": [
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (process_max_fds{job=\"prometheus\",pod=\"$pod\"})",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1192,7 +1228,10 @@
           "refId": "A"
         },
         {
-          "datasource": "$ds_prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$ds_prometheus"
+          },
           "expr": "max by (pod) (process_open_fds{job=\"prometheus\",pod=\"$pod\"})",
           "format": "time_series",
           "intervalFactor": 1,
