@@ -261,15 +261,17 @@ spec:
     - users
 ```
 
-В соответствующем проекте Atlassian Crowd необходимо создать новое `Generic`-приложение.
+1. В проекте Atlassian Crowd создайте новое `Generic`-приложение.
 
 Для этого необходимо перейти в `Applications` -> `Add application`.
 
-Полученные `Application Name` и `Password` необходимо указать в custom resource [DexProvider](cr.html#dexprovider).
+Необходимо указать полученные `Application Name` и `Password` в custom resource [DexProvider](cr.html#dexprovider).
 
 Группы CROWD указываются в lowercase-формате для custom resource `DexProvider`.
 
 #### Bitbucket Cloud
+
+Представленный YAML-файл описывает конфигурацию провайдера Dex, который использует Bitbucket Cloud для аутентификации.
 
 ```yaml
 apiVersion: deckhouse.io/v1
@@ -288,13 +290,15 @@ spec:
     - users
 ```
 
-Для настройки аутентификации необходимо в Bitbucket в меню команды создать нового OAuth consumer.
+Для настройки аутентификации в Bitbucket в меню команды создайте новый OAuth consumer.
 
-Для этого необходимо перейти в `Settings` -> `OAuth consumers` -> `New application` и в качестве `Callback URL` указать адрес `https://dex.<modules.publicDomainTemplate>/callback`, разрешить доступ для `Account: Read` и `Workspace membership: Read`.
+Для этого перейдите в `Settings` -> `OAuth consumers` -> `New application` и в качестве `Callback URL` указажите адрес `https://dex.<modules.publicDomainTemplate>/callback`, а также разрешите доступ для `Account: Read` и `Workspace membership: Read`.
 
-Полученные `Key` и `Secret` необходимо указать в custom resource [DexProvider](cr.html#dexprovider).
+Полученные `Key` и `Secret` укажите в custom resource [DexProvider](cr.html#dexprovider).
 
 #### OIDC (OpenID Connect)
+
+Представленный YAML-файл описывает конфигурацию провайдера Dex, который использует OpenID Connect (OIDC) для аутентификации через Okta.
 
 ```yaml
 apiVersion: deckhouse.io/v1
@@ -314,9 +318,11 @@ spec:
 
 Аутентификация через OIDC-провайдера требует регистрации клиента (или создания приложения). Сделайте это по документации вашего провайдера (например, [Okta](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm), [Keycloak](https://www.keycloak.org/docs/latest/server_admin/index.html#proc-creating-oidc-client_server_administration_guide), [Gluu](https://gluu.org/docs/gluu-server/4.4/admin-guide/openid-connect/#manual-client-registration)).
 
-Полученные в ходе выполнения инструкции `clientID` и `clientSecret` необходимо указать в custom resource [DexProvider](cr.html#dexprovider).
+Полученные в ходе выполнения инструкции `clientID` и `clientSecret` укажите в custom resource [DexProvider](cr.html#dexprovider).
 
 #### LDAP
+
+Представленный YAML-файл описывает конфигурацию провайдера Dex, который использует LDAP для аутентификации через Active Directory.
 
 ```yaml
 apiVersion: deckhouse.io/v1
@@ -352,16 +358,16 @@ spec:
       nameAttr: cn
 ```
 
-Для настройки аутентификации необходимо завести в LDAP read-only-пользователя (service account).
+1. Для настройки аутентификации заведите в LDAP read-only-пользователя (service account).
 
-Полученные путь до пользователя и пароль необходимо указать в полях `bindDN` и `bindPW` custom resource [DexProvider](cr.html#dexprovider).
-1. Если в LDAP настроен анонимный доступ на чтение, настройки можно не указывать.
-2. В поле `bindPW` необходимо указывать пароль в plain-виде. Стратегии с передачей хэшированных паролей не предусмотрены.
+Полученные путь до пользователя и пароль укажите в полях `bindDN` и `bindPW` custom resource [DexProvider](cr.html#dexprovider).
+Если в LDAP настроен анонимный доступ на чтение, допустимо не указывать настройки.
+2. В поле `bindPW` укажите пароль в plain-виде. Стратегии с передачей хэшированных паролей не предусмотрены.
 
 ### Настройка OAuth2-клиента в Dex для подключения приложения
 
-Данный вариант настройки подходит приложениям, которые имеют возможность использовать oauth2-аутентификацию самостоятельно, без помощи oauth2-proxy.
-Чтобы позволить подобным приложениям взаимодействовать с Dex, используется custom resource [`DexClient`](cr.html#dexclient).
+Данный вариант настройки подходит приложениям, которые используют oauth2-аутентификацию самостоятельно, без помощи oauth2-proxy.
+Для того, чтобы подобные приложения взаимодействовали с Dex, используйте custom resource [`DexClient`](cr.html#dexclient).
 
 ```yaml
 apiVersion: deckhouse.io/v1
@@ -380,10 +386,9 @@ spec:
   - opendistro-sibling
 ```
 
-После создания такого ресурса в Dex будет зарегистрирован клиент с идентификатором (**clientID**) `dex-client-myname@mynamespace`.
+После создания такого ресурса в Dex зарегистрируется клиент с идентификатором (**clientID**) `dex-client-myname@mynamespace`.
 
-Пароль для доступа к клиенту (**clientSecret**) будет сохранен в Secret'е:
-{% raw %}
+Пароль для доступа к клиенту (**clientSecret**) сохранится в Secret'е:
 
 ```yaml
 apiVersion: v1
