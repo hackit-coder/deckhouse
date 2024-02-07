@@ -21,6 +21,7 @@ import (
 	"fmt"
 )
 
+// DestructiveChangeID returns sha256 hash of destructive changes
 func DestructiveChangeID(s *Statistics) (string, error) {
 	h := sha256.New()
 
