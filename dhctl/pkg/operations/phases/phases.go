@@ -69,6 +69,7 @@ func (pec *PhasedExecutionContext) callOnPhase(completedPhase OperationPhase, co
 	}
 
 	onPhaseErr := pec.onPhaseFunc(completedPhase, completedPhaseState, nextPhase, nextPhaseIsCritical)
+	fmt.Printf("-- on phase called -> %v\n", onPhaseErr)
 
 	if onPhaseErr != nil {
 		if err := pec.setLastState(stateCache); err != nil {
@@ -80,6 +81,7 @@ func (pec *PhasedExecutionContext) callOnPhase(completedPhase OperationPhase, co
 		if errors.Is(onPhaseErr, StopOperationCondition) {
 			return true, nil
 		} else {
+			fmt.Printf("Should exit! onPhaseErr=%v\n", onPhaseErr)
 			return false, onPhaseErr
 		}
 	}

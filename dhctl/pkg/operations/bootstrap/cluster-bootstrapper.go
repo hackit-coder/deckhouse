@@ -267,7 +267,9 @@ func (b *ClusterBootstrapper) Bootstrap() error {
 
 	bootstrapState := NewBootstrapState(stateCache)
 
+	fmt.Printf("BEFORE BASE INFRA PHASE\n")
 	if shouldStop, err := b.PhasedExecutionContext.StartPhase(phases.BaseInfraPhase, true, stateCache); err != nil {
+		fmt.Printf("BEFORE BASE INFRA PHASE switch phase error -> %v\n", err)
 		return err
 	} else if shouldStop {
 		return nil
