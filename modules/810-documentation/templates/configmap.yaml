@@ -95,6 +95,10 @@ data:
             try_files /platform/$3/$4 /platform/$3/$4/ =404;
         }
 
+        location ~* ^(/(ru|en))?/platform/(presentations/.+)$ {
+            try_files /platform/$3/$4 /platform/$3/$4/ =404;
+        }
+
         location ~* ^/(ru|en)/modules/([^0-9]+[^/]+)/(.*)$ {
             try_files /modules/$1/$2/$3 /modules/$1/$2/$3/ /modules/$1/$2/$3readme.html /modules/$1/$2/$3/readme.html =404;
         }
