@@ -91,14 +91,6 @@ data:
             return 200;
         }
 
-        location ~* ^(/(ru|en))?/platform(/presentations/.+)$ {
-            return 301 $1/$2;
-        }
-
-        location ~* ^(/(ru|en))?/(presentations|assets|images|js|css)/(.+)$ {
-            try_files /platform/$3/$4 /platform/$3/$4/ =404;
-        }
-
         location ~* ^(/(ru|en))?/(presentations|assets|images|js|css)/(.+)$ {
             try_files /platform/$3/$4 /platform/$3/$4/ =404;
         }
