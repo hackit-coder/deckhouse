@@ -8,7 +8,6 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/alessio/shellescape v1.4.1
 	github.com/deckhouse/deckhouse/go_lib/registry-packages-proxy v0.0.0-00010101000000-000000000000
-	github.com/flant/addon-operator v1.3.11
 	github.com/flant/kube-client v1.1.0
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/go-openapi/spec v0.19.8
@@ -39,6 +38,7 @@ require (
 	k8s.io/klog v1.0.0
 	k8s.io/utils v0.0.0-20230406110748-d93618cff8a2
 	sigs.k8s.io/yaml v1.4.0
+	github.com/flant/addon-operator v1.3.11
 )
 
 require (
