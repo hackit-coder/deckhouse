@@ -49,7 +49,7 @@ func Serve(network, address string) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	done := make(chan struct{})
 	defer close(done)
-	sem := make(chan struct{}, 1)
+	globalLock := &sync.Mutex{}
 
 	podName := os.Getenv("HOSTNAME")
 
