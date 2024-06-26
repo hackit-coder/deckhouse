@@ -364,10 +364,6 @@ jobs:
 
   build_fe:
     name: Build FE
-    needs:
-      - git_info
-      - go_generate
-      - workflow_render
     env:
       WERF_ENV: "FE"
     # <template: build_template>
