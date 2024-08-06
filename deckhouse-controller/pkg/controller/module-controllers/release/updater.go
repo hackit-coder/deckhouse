@@ -24,7 +24,9 @@ import (
 	"strconv"
 	"time"
 
+	addonutils "github.com/flant/addon-operator/pkg/utils"
 	"github.com/flant/addon-operator/pkg/utils/logger"
+	cp "github.com/otiai10/copy"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -159,7 +161,11 @@ func (k *kubeAPI) DeployRelease(ctx context.Context, release *v1alpha1.ModuleRel
 		Weight: release.Spec.Weight,
 		Path:   tmpModuleVersionPath,
 	}
-	err = validateModule(def)
+	var values = make(addonutils.Values)
+	if module := k.moduleManager.GetModule(moduleName); module != nil {
+		values = module.GetConfigValues(false)
+	}
+	err = validateModule(def, values)
 	if err != nil {
 		release.Status.Phase = v1alpha1.PhaseSuspended
 		_ = k.UpdateReleaseStatus(release, "validation failed: "+err.Error(), release.Status.Phase)
@@ -170,7 +176,7 @@ func (k *kubeAPI) DeployRelease(ctx context.Context, release *v1alpha1.ModuleRel
 	if err = os.RemoveAll(moduleVersionPath); err != nil {
 		return fmt.Errorf("cannot remove old module dir %q: %w", moduleVersionPath, err)
 	}
-	if err = copyDirectory(tmpModuleVersionPath, moduleVersionPath); err != nil {
+	if err = cp.Copy(tmpModuleVersionPath, moduleVersionPath); err != nil {
 		return fmt.Errorf("copy module dir: %w", err)
 	}
 	def.Path = moduleVersionPath
