@@ -388,8 +388,12 @@ func Test_validateModule(t *testing.T) {
 				nil,
 			)
 
-			if err != nil && !failed {
-				t.Fatalf("%s: unexpected error: %v", name, err)
+			if !failed {
+				require.NoError(t, err, "%s: unexpected error: %v", name, err)
+			}
+
+			if failed {
+				require.Error(t, err, "%s: got nil error", name)
 			}
 		})
 	}
@@ -398,4 +402,5 @@ func Test_validateModule(t *testing.T) {
 	check("module-not-valid", true)
 	check("module-failed", true)
 	check("module-values-failed", true)
+	check("virtualization", false)
 }
