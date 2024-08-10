@@ -1,0 +1,134 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upmeter</title>
+
+    <style>
+      body > * {
+        margin-block-end: 2rem;
+      }
+
+      div.up {
+        background: hsl(130, 83%, 35%);
+        background: linear-gradient(
+          0,
+          hsla(130, 55%, 45%, 100%) 0,
+          hsla(130, 50%, 55%, 60%) 6px,
+          hsla(130, 44%, 65%, 50%) 12px,
+          hsla(130, 44%, 65%, 20%) 100%
+        );
+      }
+
+      div.down {
+        background: hsl(340, 83%, 35%);
+        background: linear-gradient(
+          0,
+          hsl(340, 74%, 25%) 0%,
+          hsl(340, 83%, 45%) 5%,
+          hsl(340, 83%, 45%) 95%,
+          hsl(340, 74%, 35%) 100%
+        );
+      }
+
+      div.unknown {
+        background: hsl(278, 83%, 35%);
+        background: linear-gradient(
+          0,
+          hsl(278, 74%, 25%) 0%,
+          hsl(278, 83%, 45%) 5%,
+          hsl(278, 83%, 45%) 95%,
+          hsl(278, 74%, 35%) 100%
+        );
+      }
+
+      div.nodata,
+      div.muted {
+        background: hsl(0, 0%, 82%);
+        background: linear-gradient(
+          0,
+          hsl(0, 0%, 88%) 0%,
+          hsl(0, 0%, 94%) 5px,
+          hsl(0, 0%, 94%) 95%,
+          hsl(0, 0%, 88%) 100%
+        );
+      }
+    </style>
+
+    <script type="module">
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+      // The data
+      const GPs = await fetch("/api/probe").then((d) => d.json());
+      console.log(GPs);
+
+      var h = d3.scaleLinear().domain([0, 1]).range([0, 100]);
+      const ordering = ["nodata", "muted", "unknown", "down", "up"];
+
+      function show(data) {
+        const gp = d3
+          .select("#chart")
+          .selectAll("div") // , (gp) => gp.group + "/" + gp.probe)
+          .data(data)
+          .join("div") // , (gp) => gp.group + "/" + gp.probe)
+          .attr("class", "group_probe");
+
+        gp.append("h4").text((gp) => gp.group + "/" + gp.probe);
+
+        gp.append("div")
+          .selectAll("div")
+          .data((gp) => gp.statuses)
+          .join("div")
+          .attr("class", "slot")
+          .style("display", "inline-block")
+          .style("border-right", ".5px solid #ffffff33")
+          .selectAll("div")
+          .data((d, i) => ordering.map((k) => [d[k]]))
+          .join("div")
+          .style("width", "5px")
+          .style("outline-right", "1px solid white")
+          .style("outline-offset", "-1px")
+          .style("height", (d) => `${h(d)}px`)
+          .attr("class", (d, i) => ordering[i]);
+      }
+
+      // /api/status/range?from=1723221800&to=1723245800&step=300&group=control-plane&probe=apiserver
+
+      const step = 450;
+      const from = 1723181300;
+      const to = 1723291800;
+      const url = (gp) =>
+        `/api/status/range?from=${from}&to=${to}&step=${step}&group=${gp.group}&probe=${gp.probe}`;
+      const fetchGP = (gp) => fetch(url(gp)).then((d) => d.json());
+      const gpStatuses = await Promise.all(GPs.map(fetchGP));
+
+      const inputs = GPs.map((gp, i) => {
+        const groupStatuses = gpStatuses[i].statuses;
+        if (!groupStatuses[gp.group]) {
+          return null;
+        }
+        if (!groupStatuses[gp.group][gp.probe]) {
+          return null;
+        }
+        gp.statuses = groupStatuses[gp.group][gp.probe]
+          .slice(0, -1)
+          .map((d) => ({
+            up: d.up / d.slot_size,
+            down: d.down / d.slot_size,
+            unknown: d.unknown / d.slot_size,
+            muted: d.muted / d.slot_size,
+            nodata: d.nodata / d.slot_size,
+          }));
+
+        return gp;
+      }).filter((d) => d);
+
+      show(inputs);
+    </script>
+  </head>
+  <body>
+    <h1>Hello sfsfdsdfsd</h1>
+    <pre></pre>
+    <div id="chart"></div>
+  </body>
+</html>
