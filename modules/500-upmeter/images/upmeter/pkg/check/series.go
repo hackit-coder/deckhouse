@@ -97,9 +97,9 @@ func mergeStrategy(dst, src Status) Status {
 		return src
 	}
 	if dst > src {
-		return src
+		return dst
 	}
-	return dst
+	return src
 }
 
 // MergeStatusSeries merges status series according to the merge strategy: Down is preferred to Up,
