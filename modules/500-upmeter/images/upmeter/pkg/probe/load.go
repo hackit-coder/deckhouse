@@ -29,6 +29,77 @@ import (
 	"d8.io/upmeter/pkg/set"
 )
 
+type Loader interface {
+	Load() []*check.Runner
+	Groups() []string
+	Probes() []check.ProbeRef
+}
+
+func NewFakeLoader(logger *logrus.Logger) *FakeLoader {
+	return &FakeLoader{logger: logger}
+}
+
+type FakeLoader struct {
+	logger *logrus.Logger
+}
+
+func (l *FakeLoader) Load() []*check.Runner {
+	runners := make([]*check.Runner, 0)
+	for _, ref := range l.Probes() {
+		probeLogger := l.logger.WithField("group", ref.Group).WithField("probe", ref.Probe)
+
+		r1 := check.NewRunner(ref.Group, ref.Probe, "1", 5*time.Second, checker.Fake(),
+			probeLogger.WithField("check", "1"))
+		r2 := check.NewRunner(ref.Group, ref.Probe, "2", 10*time.Second, checker.Fake(),
+			probeLogger.WithField("check", "2"))
+		r3 := check.NewRunner(ref.Group, ref.Probe, "3", 200*time.Millisecond, checker.Fake(),
+			probeLogger.WithField("check", "3"))
+		runners = append(runners, r1, r2, r3)
+	}
+	return runners
+}
+
+func (l *FakeLoader) Groups() []string {
+	groups := set.New()
+	for _, group := range l.Probes() {
+		groups.Add(group.Group)
+	}
+	return groups.Slice()
+}
+
+func (l *FakeLoader) Probes() []check.ProbeRef {
+	return []check.ProbeRef{
+		{Group: "control-plane", Probe: "apiserver"},
+		{Group: "control-plane", Probe: "basic-functionality"},
+		{Group: "control-plane", Probe: "cert-manager"},
+		{Group: "control-plane", Probe: "controller-manager"},
+		{Group: "control-plane", Probe: "namespace"},
+		{Group: "control-plane", Probe: "scheduler"},
+		{Group: "deckhouse", Probe: "cluster-configuration"},
+		{Group: "extensions", Probe: "cluster-autoscaler"},
+		{Group: "extensions", Probe: "cluster-scaling"},
+		{Group: "extensions", Probe: "dashboard"},
+		{Group: "extensions", Probe: "dex"},
+		{Group: "extensions", Probe: "grafana"},
+		{Group: "extensions", Probe: "openvpn"},
+		{Group: "extensions", Probe: "prometheus-longterm"},
+		{Group: "load-balancing", Probe: "load-balancer-configuration"},
+		{Group: "load-balancing", Probe: "metallb"},
+		// {Group: "monitoring-and-autoscaling", Probe: "horizontal-pod-autoscaler"},  // calculated
+		{Group: "monitoring-and-autoscaling", Probe: "key-metrics-present"},
+		{Group: "monitoring-and-autoscaling", Probe: "metrics-sources"},
+		{Group: "monitoring-and-autoscaling", Probe: "prometheus"},
+		{Group: "monitoring-and-autoscaling", Probe: "prometheus-metrics-adapter"},
+		{Group: "monitoring-and-autoscaling", Probe: "trickster"},
+		{Group: "monitoring-and-autoscaling", Probe: "vertical-pod-autoscaler"},
+		{Group: "synthetic", Probe: "access"},
+		{Group: "synthetic", Probe: "dns"},
+		{Group: "synthetic", Probe: "neighbor"},
+		{Group: "synthetic", Probe: "neighbor-via-service"},
+	}
+
+}
+
 func NewLoader(
 	filter Filter,
 	access kubernetes.Access,
@@ -36,8 +107,8 @@ func NewLoader(
 	dynamic DynamicConfig,
 	preflight checker.Doer,
 	logger *logrus.Logger,
-) *Loader {
-	return &Loader{
+) *ProbeLoader {
+	return &ProbeLoader{
 		filter:     filter,
 		access:     access,
 		dynamic:    dynamic,
@@ -47,7 +118,7 @@ func NewLoader(
 	}
 }
 
-type Loader struct {
+type ProbeLoader struct {
 	filter     Filter
 	access     kubernetes.Access
 	logger     *logrus.Logger
@@ -70,7 +141,7 @@ type DynamicConfig struct {
 	ZonePrefix              string
 }
 
-func (l *Loader) Load() []*check.Runner {
+func (l *ProbeLoader) Load() []*check.Runner {
 	runners := make([]*check.Runner, 0)
 	for _, rc := range l.collectConfigs() {
 		if !l.filter.Enabled(rc.Ref()) {
@@ -92,7 +163,7 @@ func (l *Loader) Load() []*check.Runner {
 	return runners
 }
 
-func (l *Loader) Groups() []string {
+func (l *ProbeLoader) Groups() []string {
 	if l.groups != nil {
 		return l.groups
 	}
@@ -110,7 +181,7 @@ func (l *Loader) Groups() []string {
 	return l.groups
 }
 
-func (l *Loader) Probes() []check.ProbeRef {
+func (l *ProbeLoader) Probes() []check.ProbeRef {
 	if l.probes != nil {
 		return l.probes
 	}
@@ -133,7 +204,7 @@ func (l *Loader) Probes() []check.ProbeRef {
 	return l.probes
 }
 
-func (l *Loader) collectConfigs() []runnerConfig {
+func (l *ProbeLoader) collectConfigs() []runnerConfig {
 	if l.configs != nil {
 		// Already inited
 		return l.configs
