@@ -10,10 +10,6 @@
     -->
 
     <style>
-      body > * {
-        margin-block-end: 2rem;
-      }
-
       div.up {
         background: hsl(130, 83%, 35%);
         background: linear-gradient(
@@ -58,6 +54,46 @@
           hsl(0, 0%, 88%) 100%
         );
       }
+
+      #chart > * {
+        margin-block-end: 0.5rem;
+      }
+
+      div.probe {
+        vertical-align: top;
+        width: 1000px;
+        padding: 0;
+        margin: 0;
+        font-size: small;
+      }
+
+      div.title {
+        display: inline-block;
+        width: 200px;
+      }
+
+      div.range {
+        display: inline-flex;
+        flex-direction: row;
+        vertical-align: top;
+        width: 800px;
+      }
+
+      div.slot {
+        flex-grow: 1;
+        flex-direction: column;
+        border-right: 0.5px solid #ffffff33;
+        min-width: 4px;
+        display: flex;
+        outline-offset: -1px;
+      }
+
+      div.slot > div {
+        display: block;
+        width: 100%;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+      }
     </style>
 
     <script type="module">
@@ -67,8 +103,8 @@
       const GPs = await fetch("/api/probe").then((d) => d.json());
       console.log(GPs);
 
-      var h = d3.scaleLinear().domain([0, 1]).range([0, 100]);
-      const ordering = ["nodata", "muted", "unknown", "down", "up"];
+      var h = d3.scaleLinear().domain([0, 1]).range([0, 30]);
+      const ordering = ["down", "nodata", "muted", "unknown", "up"];
 
       const chartElement = d3.select("#chart");
 
@@ -79,7 +115,12 @@
           .join("div") // , (gp) => gp.group + "/" + gp.probe)
           .attr("class", "probe");
 
-        gp.selectAll("h4").data((gp) => [gp.group + "/" + gp.probe]).join("h4").text((d) => d);
+        gp.selectAll("div")
+          // .data((gp) => [gp.group + "/" + gp.probe])
+          .data((gp) => [gp.probe])
+          .join("div")
+          .attr("class", "title")
+          .text((d) => d);
 
         gp.selectAll("div.range")
           .data((gp) => [gp])
@@ -89,14 +130,9 @@
           .data((gp) => gp.statuses)
           .join("div")
           .attr("class", "slot")
-          .style("display", "inline-block")
-          .style("border-right", ".5px solid #ffffff33")
           .selectAll("div")
           .data((d, i) => ordering.map((k) => [d[k]]))
           .join("div")
-          .style("width", "10px")
-          .style("outline-right", "1px solid white")
-          .style("outline-offset", "-1px")
           .style("height", (d) => `${h(d)}px`)
           .attr("class", (d, i) => ordering[i]);
       }
@@ -105,7 +141,8 @@
 
       async function getData() {
         const step = 300;
-        const range = 6 * 3600; // 6 hours
+        const hour = 3600;
+        const range = 3 * hour;
         const from = Math.round(new Date().valueOf() / 1000) - range;
         const to = Math.round(new Date().valueOf() / 1000);
         const url = (gp) =>
