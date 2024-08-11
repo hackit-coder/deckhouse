@@ -31,8 +31,7 @@ type fakeChecker struct {
 	hold    int
 }
 
-var errPool = []check.Error{nil, nil, nil, check.ErrFail("fail"), check.ErrUnknown("unknown")}
-var multiplier = []int{5, 5, 5, 10, 1}
+var errPool = []check.Error{nil, nil, nil, nil, check.ErrFail("fail"), check.ErrUnknown("unknown")}
 
 func (c *fakeChecker) Check() check.Error {
 	if c.hold > 0 {
@@ -42,6 +41,6 @@ func (c *fakeChecker) Check() check.Error {
 	// pick random error for some time
 	i := rand.Int() % len(errPool)
 	c.current = errPool[i]
-	c.hold = rand.Int() % 600 * multiplier[i]
+	c.hold = rand.Int() % 600
 	return c.current
 }

@@ -10,6 +10,15 @@
     -->
 
     <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body > header, body > main {
+        padding: 1rem;
+      }
+
       div.up {
         background: hsl(130, 83%, 35%);
         background: linear-gradient(
@@ -60,23 +69,40 @@
       }
 
       div.probe {
+        display: flex;
+        flex-direction: row;
         vertical-align: top;
-        width: 1000px;
         padding: 0;
         margin: 0;
         font-size: small;
       }
 
+      div.probe > div {
+        margin-block-end: 1rem;
+      }
+
       div.title {
-        display: inline-block;
-        width: 200px;
+        flex-grow: 0;
+        width: 20rem;
+        font-size: larger;
+      }
+
+      div.availability {
+        font-size: large;
+        flex-grow: 0;
+        width: 5rem;
+      }
+
+      div.title ,
+      div.availability {
+        padding-top: 0.2em;
       }
 
       div.range {
+        flex-grow: 1;
         display: inline-flex;
         flex-direction: row;
         vertical-align: top;
-        width: 800px;
       }
 
       div.slot {
@@ -115,19 +141,28 @@
           .join("div") // , (gp) => gp.group + "/" + gp.probe)
           .attr("class", "probe");
 
-        gp.selectAll("div")
+        // Probe title
+        gp.selectAll("div.title")
           // .data((gp) => [gp.group + "/" + gp.probe])
           .data((gp) => [gp.probe])
           .join("div")
           .attr("class", "title")
           .text((d) => d);
 
+        // Avaialbility for the range
+        gp.selectAll("div.availability")
+          .data((gp) => gp.statuses.slice(-1))
+          .join("div")
+          .attr("class", "availability")
+          .text((d) => `${(d.up * 100).toFixed(2)}%`);
+
+        // Slot range
         gp.selectAll("div.range")
           .data((gp) => [gp])
           .join("div")
           .attr("class", "range")
           .selectAll("div.slot")
-          .data((gp) => gp.statuses)
+          .data((gp) => gp.statuses.slice(0, -1))
           .join("div")
           .attr("class", "slot")
           .selectAll("div")
@@ -140,11 +175,13 @@
       // /api/status/range?from=1723221800&to=1723245800&step=300&group=control-plane&probe=apiserver
 
       async function getData() {
+        // controls that should become parameters
         const step = 300;
         const hour = 3600;
         const range = 3 * hour;
         const from = Math.round(new Date().valueOf() / 1000) - range;
         const to = Math.round(new Date().valueOf() / 1000);
+
         const url = (gp) =>
           `/api/status/range?from=${from}&to=${to}&step=${step}&group=${gp.group}&probe=${gp.probe}`;
         const fetchGP = (gp) => fetch(url(gp)).then((d) => d.json());
@@ -159,14 +196,28 @@
             return null;
           }
           gp.statuses = groupStatuses[gp.group][gp.probe]
-            .slice(0, -1)
-            .map((d) => ({
-              up: d.up / d.slot_size,
-              down: d.down / d.slot_size,
-              unknown: d.unknown / d.slot_size,
-              muted: d.muted / d.slot_size,
-              nodata: d.nodata / d.slot_size,
-            }));
+            // .slice(0, -1)
+            .map((d) => {
+              if (d.slot_size == 0) {
+                const slot_size =
+                  1e6 *
+                  (new Date(d.end).valueOf() - new Date(d.start).valueOf());
+                return {
+                  up: d.up / slot_size,
+                  down: d.down / slot_size,
+                  unknown: d.unknown / slot_size,
+                  muted: d.muted / slot_size,
+                  nodata: d.nodata / slot_size,
+                };
+              }
+              return {
+                up: d.up / d.slot_size,
+                down: d.down / d.slot_size,
+                unknown: d.unknown / d.slot_size,
+                muted: d.muted / d.slot_size,
+                nodata: d.nodata / d.slot_size,
+              };
+            });
 
           return gp;
         }).filter((d) => d);
@@ -183,8 +234,11 @@
     </script>
   </head>
   <body>
-    <h1>Deckhouse Kubernetes Platform Subsystem Availability</h1>
-    <pre></pre>
-    <div id="chart"></div>
+    <header>
+      <h1>Deckhouse Kubernetes Platform Subsystem Availability</h1>
+    </header>
+    <main>
+      <div id="chart"></div>
+    </main>
   </body>
 </html>
