@@ -714,12 +714,37 @@ func TestNewStatusSeriesFromRLE(t *testing.T) {
 			},
 			want: &StatusSeries{series: []Status{nodata, Up, Up, Up, Up, nodata}},
 		},
+		{
+			name: "30 down",
+			args: args{
+				rle: "30X",
+			},
+			want: &StatusSeries{series: []Status{
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Down,
+			}},
+		},
+		{
+			name: "17 down + 1up + 12 down",
+			args: args{
+				rle: "17X1.12X",
+			},
+			want: &StatusSeries{series: []Status{
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Up, // <-
+				Down, Down, Down, Down, Down, Down,
+				Down, Down, Down, Down, Down, Down,
+			}},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewStatusSeriesFromRLE(tt.args.rle); !reflect.DeepEqual(got.series, tt.want.series) {
-				t.Errorf("NewStatusSeriesFromRLE() = %v, want %v", got, tt.want)
-			}
+			got := NewStatusSeriesFromRLE(tt.args.rle)
+			assert.Equal(t, tt.want.series, got.series)
 		})
 	}
 }

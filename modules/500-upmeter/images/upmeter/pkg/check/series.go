@@ -60,6 +60,7 @@ func (ss *StatusSeries) Merge(src *StatusSeries) error {
 	return nil
 }
 
+// Stats contains the number of statuses in the series.
 func (ss *StatusSeries) Stats() Stats {
 	stats := Stats{
 		Expected: ss.size(),

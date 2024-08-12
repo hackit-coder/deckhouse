@@ -33,14 +33,16 @@ type Episode struct {
 	SeriesRLE string        `json:"series"`  // series of statuses
 }
 
-func NewEpisode(ref ProbeRef, start time.Time, step time.Duration, series *StatusSeries) Episode {
+// NewEpisode creates an Episode from a StatusSeries. It calculates the total time slot duration.
+// Scrape period is a scale for the points in the series.
+func NewEpisode(ref ProbeRef, start time.Time, scrapePeriod time.Duration, series *StatusSeries) Episode {
 
 	var (
 		counters = series.Stats()
-		total    = step * time.Duration(counters.Expected)
-		up       = step * time.Duration(counters.Up)
-		down     = step * time.Duration(counters.Down)
-		unknown  = step * time.Duration(counters.Unknown)
+		total    = scrapePeriod * time.Duration(counters.Expected)
+		up       = scrapePeriod * time.Duration(counters.Up)
+		down     = scrapePeriod * time.Duration(counters.Down)
+		unknown  = scrapePeriod * time.Duration(counters.Unknown)
 		nodata   = total - up - down - unknown
 	)
 
@@ -130,7 +132,7 @@ func (e Episode) EqualTimers(a Episode) bool {
 }
 
 func (e Episode) String() string {
-	return fmt.Sprintf("slot=%s probe=%s stats=↑%s ↓%s ?%s _%s series=%s",
+	return fmt.Sprintf("slot=%s probe=%s stats=↑%s ↓%s ?%s o%s series=%s",
 		e.TimeSlot.Format(time.Stamp),
 		e.ProbeRef.Id(),
 		time.Duration(e.Up).String(),

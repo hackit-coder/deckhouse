@@ -20,6 +20,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_CombineSeconds(t *testing.T) {
@@ -118,182 +120,150 @@ func Test_NewEpisode(t *testing.T) {
 	var start time.Time
 
 	tests := []struct {
-		name   string
-		step   time.Duration
-		series *StatusSeries
-		want   Episode
+		name         string
+		scrapePeriod time.Duration
+		series       *StatusSeries
+		want         Episode
 	}{
 		{
-			name:   "zeros",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE(""),
-			want:   Episode{},
+			name:         "zeros",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE(""),
+			want:         Episode{},
 		}, {
-			name:   "1/1 up with 1s step",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1."),
+			name:         "1/1 up",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1."),
 			want: Episode{
 				SeriesRLE: "1.",
 				Up:        time.Second,
 			},
 		}, {
-			name:   "1/1 down with 1s step",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1X"),
+			name:         "1/1 down",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1X"),
 			want: Episode{
 				SeriesRLE: "1X",
 				Down:      time.Second,
 			},
 		}, {
-			name:   "1/1 unknown with 1s step",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1u"),
+			name:         "1/1 unknown",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1u"),
 			want: Episode{
 				SeriesRLE: "1u",
 				Unknown:   time.Second,
 			},
 		}, {
-			name:   "1/1 nodata with 1s step",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1o"),
+			name:         "1/1 nodata",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1o"),
 			want: Episode{
 				SeriesRLE: "1o",
 				NoData:    time.Second,
 			},
 		}, {
-			name:   "1/1 up with 30s step",
-			step:   30 * time.Second,
-			series: NewStatusSeriesFromRLE("1."),
+			name:         "30 nodata",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("30o"),
 			want: Episode{
-				SeriesRLE: "1.",
-				Up:        30 * time.Second,
-			},
-		}, {
-			name:   "1/1 down with 30s step",
-			step:   30 * time.Second,
-			series: NewStatusSeriesFromRLE("1X"),
-			want: Episode{
-				SeriesRLE: "1X",
-				Down:      30 * time.Second,
-			},
-		}, {
-			name:   "1/1 unknown with 30s step",
-			step:   30 * time.Second,
-			series: NewStatusSeriesFromRLE("1u"),
-			want: Episode{
-				SeriesRLE: "1u",
-				Unknown:   30 * time.Second,
-			},
-		}, {
-			name:   "1/1 nodata with 30s step",
-			step:   30 * time.Second,
-			series: NewStatusSeriesFromRLE("1o"),
-			want: Episode{
-				SeriesRLE: "1o",
+				SeriesRLE: "30o",
 				NoData:    30 * time.Second,
 			},
 		}, {
-			name:   "1/30 nodata",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1o"),
+			name:         "1 up 29 nodata",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1.29o"),
 			want: Episode{
-				SeriesRLE: "1o",
-				NoData:    30 * time.Second,
-			},
-		}, {
-			name:   "1/30 up",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1."),
-			want: Episode{
-				SeriesRLE: "1.",
+				SeriesRLE: "1.29o",
 				Up:        1 * time.Second,
 				NoData:    29 * time.Second,
 			},
 		}, {
-			name:   "1/30 down",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1X"),
+			name:         "1 down 29 nodata",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1X29o"),
 			want: Episode{
-				SeriesRLE: "1X",
+				SeriesRLE: "1X29o",
 				Down:      1 * time.Second,
 				NoData:    29 * time.Second,
 			},
 		}, {
-			name:   "1/30 unknown",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("1u"),
+			name:         "1 unknown 29 nodata",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("1u29o"),
 			want: Episode{
-				SeriesRLE: "1u",
+				SeriesRLE: "1u29o",
 				Unknown:   1 * time.Second,
 				NoData:    29 * time.Second,
 			},
 		}, {
-			name:   "15/30 up",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("15."),
+			name:         "15/30 up",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("15.15o"),
 			want: Episode{
-				SeriesRLE: "15.",
+				SeriesRLE: "15.15o",
 				Up:        15 * time.Second,
 				NoData:    15 * time.Second,
 			},
 		}, {
-			name:   "15/30 down",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("15X"),
+			name:         "15/30 down",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("15X15o"),
 			want: Episode{
-				SeriesRLE: "15X",
+				SeriesRLE: "15X15o",
 				Down:      15 * time.Second,
 				NoData:    15 * time.Second,
 			},
 		}, {
-			name:   "15/30 unknown",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("15u"),
+			name:         "15/30 unknown",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("15u15o"),
 			want: Episode{
-				SeriesRLE: "15u",
+				SeriesRLE: "15u15o",
 				Unknown:   15 * time.Second,
 				NoData:    15 * time.Second,
 			},
 		}, {
-			name:   "30/30 up",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("30."),
+			name:         "30/30 up",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("30."),
 			want: Episode{
 				SeriesRLE: "30.",
 				Up:        30 * time.Second,
 			},
 		}, {
-			name:   "30/30 down",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("30X"),
+			name:         "30/30 down",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("30X"),
 			want: Episode{
 				SeriesRLE: "30X",
 				Down:      30 * time.Second,
 			},
 		}, {
-			name:   "30/30 unknown",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("30u"),
+			name:         "30/30 unknown",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("30u"),
 			want: Episode{
 				SeriesRLE: "30u",
 				Unknown:   30 * time.Second,
 			},
 		}, {
-			name:   "10+10+10/30 unknown",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("10.10X10u10.10X10u"),
+			name:         "10+10+10/30 unknown",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("10.10X10u"),
 			want: Episode{
-				SeriesRLE: "10.10X10u10.10X10u",
+				SeriesRLE: "10.10X10u",
 				Up:        10 * time.Second,
 				Down:      10 * time.Second,
 				Unknown:   10 * time.Second,
 			},
 		}, {
-			name:   "10+10/30 unknown",
-			step:   time.Second,
-			series: NewStatusSeriesFromRLE("10X10u10X10u"),
+			name:         "10+10/30 unknown",
+			scrapePeriod: time.Second,
+			series:       NewStatusSeriesFromRLE("10X10u10o"),
 			want: Episode{
-				SeriesRLE: "10X10u10X10u",
+				SeriesRLE: "10X10u10o",
 				Down:      10 * time.Second,
 				Unknown:   10 * time.Second,
 				NoData:    10 * time.Second,
@@ -304,11 +274,9 @@ func Test_NewEpisode(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// got := NewEpisode(ref, start, tt.step, tt.series)
-			got := NewEpisode(ref, start, 30*time.Second, tt.series)
-
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewEpisode() = %v, want %v", got, tt.want)
-			}
+			got := NewEpisode(ref, start, tt.scrapePeriod, tt.series)
+			assert.Equal(t, tt.want.SeriesRLE, got.SeriesRLE, ".SeriesRLE")
+			assert.Equal(t, tt.want.String(), got.String())
 		})
 	}
 }
