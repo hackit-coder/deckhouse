@@ -17,6 +17,7 @@ limitations under the License.
 package probe
 
 import (
+	"math/rand"
 	"sort"
 	"time"
 
@@ -44,17 +45,19 @@ type FakeLoader struct {
 }
 
 func (l *FakeLoader) Load() []*check.Runner {
-	runners := make([]*check.Runner, 0)
-	for _, ref := range l.Probes() {
-		probeLogger := l.logger.WithField("group", ref.Group).WithField("probe", ref.Probe)
+	runners := make([]*check.Runner, 0, len(l.Probes()))
 
-		r1 := check.NewRunner(ref.Group, ref.Probe, "1", 5*time.Second, checker.Fake(),
-			probeLogger.WithField("check", "1"))
-		r2 := check.NewRunner(ref.Group, ref.Probe, "2", 10*time.Second, checker.Fake(),
-			probeLogger.WithField("check", "2"))
-		r3 := check.NewRunner(ref.Group, ref.Probe, "3", 200*time.Millisecond, checker.Fake(),
-			probeLogger.WithField("check", "3"))
-		runners = append(runners, r1, r2, r3)
+	for _, ref := range l.Probes() {
+		// random period
+		// 1. 5s is pretty common
+		// 2. 1m is 2 times slower than episode export
+		// 3. 200ms is fast
+		period := randomPeriod(5*time.Second, 1*time.Minute, 200*time.Millisecond)
+		logger := l.logger.WithField("group", ref.Group).WithField("probe", ref.Probe).WithField("check", "fake")
+
+		r := check.NewRunner(ref.Group, ref.Probe, "1", period, checker.Fake(), logger)
+
+		runners = append(runners, r)
 	}
 	return runners
 }
@@ -245,4 +248,9 @@ type Filter struct {
 
 func (f Filter) Enabled(ref check.ProbeRef) bool {
 	return !(f.refs.Has(ref.Id()) || f.refs.Has(ref.Group) || f.refs.Has(ref.Group+"/"))
+}
+
+// randomPeriod picking from edge cases
+func randomPeriod(periods ...time.Duration) time.Duration {
+	return periods[rand.Intn(len(periods))]
 }
