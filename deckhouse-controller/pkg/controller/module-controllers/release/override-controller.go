@@ -232,7 +232,7 @@ func (c *modulePullOverrideReconciler) moduleOverrideReconcile(ctx context.Conte
 	}
 
 	if err = os.RemoveAll(c.downloadedModulesDir); err != nil {
-		return ctrl.Result{}, fmt.Errorf("cannot remove old module dir %q: %w", c.externalModulesDir, err)
+		return ctrl.Result{}, fmt.Errorf("cannot remove old module dir %q: %w", c.downloadedModulesDir, err)
 	}
 	if err = cp.Copy(tmpDir, c.downloadedModulesDir); err != nil {
 		return ctrl.Result{}, fmt.Errorf("copy module dir: %w", err)
