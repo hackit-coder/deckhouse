@@ -191,7 +191,7 @@ func (c *modulePullOverrideReconciler) moduleOverrideReconcile(ctx context.Conte
 	if err != nil {
 		return ctrl.Result{}, fmt.Errorf("cannot create tmp directory: %w", err)
 	}
-	defer os.RemoveAll(tmpDir)
+	defer func() { _ = os.RemoveAll(tmpDir) }()
 	md := downloader.NewModuleDownloader(c.dc, tmpDir, ms, utils.GenerateRegistryOptions(ms))
 	newChecksum, moduleDef, err := md.DownloadDevImageTag(mo.Name, mo.Spec.ImageTag, mo.Status.ImageDigest)
 	if err != nil {
@@ -231,7 +231,8 @@ func (c *modulePullOverrideReconciler) moduleOverrideReconcile(ctx context.Conte
 		return ctrl.Result{}, fmt.Errorf("validation failed: %w", err)
 	}
 
-	if err = os.RemoveAll(c.downloadedModulesDir); err != nil {
+	moduleStorePath := path.Join(c.downloadedModulesDir, moduleDef.Name, downloader.DefaultDevVersion)
+	if err = os.RemoveAll(moduleStorePath); err != nil {
 		return ctrl.Result{}, fmt.Errorf("cannot remove old module dir %q: %w", c.downloadedModulesDir, err)
 	}
 	if err = cp.Copy(tmpDir, c.downloadedModulesDir); err != nil {
