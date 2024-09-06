@@ -1,0 +1,68 @@
+{{- define "etcd_backup_resources" }}
+cpu: 25m
+memory: 40Mi
+{{- end }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: d8-etcd-backup
+  namespace: kube-system
+  {{- include "helm_lib_module_labels" (list . (dict "app" "d8-etcd-backup" "master")) | nindent 2 }}
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          {{- include "helm_lib_node_selector" (tuple . "master") | nindent 10 }}
+          {{- include "helm_lib_module_pod_security_context_run_as_user_root" . | nindent 10 }}
+          {{- include "helm_lib_priority_class" (tuple . "cluster-low") | nindent 6 }}
+          {{- include "helm_lib_tolerations" (tuple . "any-node") | nindent 10 }}
+          imagePullSecrets:
+          - name: deckhouse-registry
+          restartPolicy: OnFailure
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
+          containers:
+          - name: backup
+            {{- include "helm_lib_module_container_security_context_read_only_root_filesystem_capabilities_drop_all" . | nindent 12 }}
+            image: {{ include "helm_lib_module_image" (list . "etcdBackup") }}
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - etcdctl \
+              --endpoints=https://127.0.0.1:2379 \
+              --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+              --cert=/etc/kubernetes/pki/etcd/healthcheck-client.crt \
+              --key=/etc/kubernetes/pki/etcd/healthcheck-client.key \
+              snapshot save /tmp/etcd-snapshot.db && \
+              cp /tmp/etcd-snapshot.db /var/lib/etcd/etcd-snapshot.db
+            resources:
+              requests:
+              {{- if not ( .Values.global.enabledModules | has "vertical-pod-autoscaler-crd") }}
+                {{- include "control_plane_manager_resources" . | nindent 16 }}
+              {{- end }}
+            volumeMounts:
+            - mountPath: /etc/kubernetes/pki/etcd
+              name: etcd-certs
+              readOnly: true
+            - mountPath: /var/lib/etcd
+              name: etcd-data
+            - mountPath: /tmp
+              name: tmp
+          volumes:
+          - hostPath:
+            path: /etc/kubernetes/pki/etcd
+            type: DirectoryOrCreate
+            name: etcd-certs
+          - hostPath:
+            path: /var/lib/etcd
+            type: DirectoryOrCreate
+            name: etcd-data
+          - name: tmp
+            emptyDir: {}

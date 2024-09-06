@@ -1,0 +1,18 @@
+---
+image: {{ $.ModuleName }}/{{ $.ImageName }}
+fromImage: common/distroless
+import:
+  - artifact: {{ $.ModuleName }}/etcd-artifact
+    add: /
+    to: /bin
+    includePaths:
+    - etcdctl
+    before: setup
+  - artifact: {{ $.ModuleName }}/etcd-artifact
+    add: /bin
+    to: /bin
+    includePaths:
+    - busybox
+    - cp
+    - sh
+    before: setup
