@@ -13,8 +13,6 @@ import:
     to: /bin
     includePaths:
     - busybox
+    - cp
+    - sh
     before: setup
-shell:
-  setup:
-  - ls -l /bin/busybox /bin/sh
-  - ls -l /bin/busybox /bin/cp
