@@ -13,9 +13,11 @@ import:
     to: /
     includePaths:
     - bin/busybox
+    - bin/sh
     - lib/ld-musl-x86_64.so.1
     before: setup
 shell:
   setup:
-  - /bin/busybox ln -s /bin/busybox /bin/sh
   - /bin/busybox ln -s /bin/busybox /bin/cp
+  - /bin/busybox ln -s /bin/busybox /bin/df
+  - /bin/busybox ln -s /bin/busybox /bin/du
