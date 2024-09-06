@@ -17,4 +17,5 @@ import:
     before: setup
 shell:
   setup:
-  - /bin/busybox ln -s /bin/cp /bin/sh /bin/busybox
+  - /bin/busybox ln -s /bin/busybox /bin/sh
+  - /bin/busybox ln -s /bin/busybox /bin/cp
