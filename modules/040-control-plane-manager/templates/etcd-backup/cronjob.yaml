@@ -35,13 +35,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - etcdctl \
-              --endpoints=https://127.0.0.1:2379 \
-              --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-              --cert=/etc/kubernetes/pki/etcd/healthcheck-client.crt \
-              --key=/etc/kubernetes/pki/etcd/healthcheck-client.key \
-              snapshot save /tmp/etcd-snapshot.db && \
-              cp /tmp/etcd-snapshot.db /var/lib/etcd/etcd-snapshot.db
+            - etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/healthcheck-client.crt --key=/etc/kubernetes/pki/etcd/healthcheck-client.key snapshot save /tmp/etcd-snapshot.db && cp /tmp/etcd-snapshot.db /var/lib/etcd/etcd-snapshot.db
             resources:
               requests:
               {{- include "helm_lib_module_ephemeral_storage_logs_with_extra" 50 | nindent 16 }}
