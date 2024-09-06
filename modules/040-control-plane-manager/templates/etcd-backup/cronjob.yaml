@@ -1,8 +1,8 @@
-{{- if .Values.global.clusterIsBootstrapped }}
 {{- define "etcd_backup_resources" }}
 cpu: 25m
 memory: 40Mi
 {{- end }}
+{{- if .Values.global.clusterIsBootstrapped }}
 ---
 apiVersion: batch/v1
 kind: CronJob
