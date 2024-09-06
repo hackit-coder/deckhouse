@@ -4,16 +4,11 @@ fromImage: common/distroless
 import:
   - artifact: {{ $.ModuleName }}/etcd-artifact
     add: /
-    to: /bin
-    includePaths:
-    - etcdctl
-    before: setup
-  - artifact: {{ $.ModuleName }}/etcd-artifact
-    add: /
     to: /
     includePaths:
     - bin/busybox
     - lib/ld-musl-x86_64.so.1
+    - bin/etcdctl
     before: setup
 shell:
   setup:
