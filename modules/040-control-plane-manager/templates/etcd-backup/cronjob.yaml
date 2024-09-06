@@ -1,4 +1,4 @@
-{{- if not .Values.global.clusterIsBootstrapped }}
+{{- if .Values.global.clusterIsBootstrapped }}
 {{- define "etcd_backup_resources" }}
 cpu: 25m
 memory: 40Mi
