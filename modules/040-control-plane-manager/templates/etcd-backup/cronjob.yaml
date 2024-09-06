@@ -1,3 +1,4 @@
+{{- if not .Values.global.clusterIsBootstrapped }}
 {{- define "etcd_backup_resources" }}
 cpu: 25m
 memory: 40Mi
@@ -62,3 +63,4 @@ spec:
             name: etcd-data
           - name: tmp
             emptyDir: {}
+{{- end }}
