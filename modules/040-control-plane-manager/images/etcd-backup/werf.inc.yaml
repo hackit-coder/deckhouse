@@ -17,4 +17,4 @@ shell:
   - /bin/busybox ln -sf /bin/busybox /bin/df
   - /bin/busybox ln -sf /bin/busybox /bin/du
   - /bin/busybox ln -sf /bin/busybox /bin/tail
-  - /bin/busybox ln -sf /bin/busybox /bin/cut
+  - /bin/busybox ln -sf /bin/busybox /bin/awk
