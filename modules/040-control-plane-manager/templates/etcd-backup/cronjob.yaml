@@ -52,12 +52,12 @@ spec:
               name: tmp
           volumes:
           - hostPath:
-            path: /etc/kubernetes/pki/etcd
-            type: DirectoryOrCreate
+              path: /etc/kubernetes/pki/etcd
+              type: DirectoryOrCreate
             name: etcd-certs
           - hostPath:
-            path: /var/lib/etcd
-            type: DirectoryOrCreate
+              path: /var/lib/etcd
+              type: DirectoryOrCreate
             name: etcd-data
           - name: tmp
             emptyDir: {}
