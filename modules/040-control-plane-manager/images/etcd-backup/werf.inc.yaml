@@ -21,3 +21,5 @@ shell:
   - /bin/busybox ln -s /bin/busybox /bin/cp
   - /bin/busybox ln -s /bin/busybox /bin/df
   - /bin/busybox ln -s /bin/busybox /bin/du
+  - /bin/busybox ln -s /bin/busybox /bin/tail
+  - /bin/busybox ln -s /bin/busybox /bin/cut
