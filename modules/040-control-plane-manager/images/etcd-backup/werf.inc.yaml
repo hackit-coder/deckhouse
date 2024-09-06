@@ -3,8 +3,8 @@ image: {{ $.ModuleName }}/{{ $.ImageName }}
 fromImage: common/distroless
 import:
   - artifact: {{ $.ModuleName }}/etcd-artifact
-    add: /bin
-    to: /usr/bin
+    add: /
+    to: /bin
     includePaths:
     - etcdctl
     before: setup
