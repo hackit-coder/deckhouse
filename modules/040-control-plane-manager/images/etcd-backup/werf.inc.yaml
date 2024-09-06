@@ -9,10 +9,11 @@ import:
     - etcdctl
     before: setup
   - artifact: {{ $.ModuleName }}/etcd-artifact
-    add: /bin
-    to: /bin
+    add: /
+    to: /
     includePaths:
-    - busybox
-    - cp
-    - sh
+    - bin/busybox
+    - bin/cp
+    - bin/sh
+    - lib/ld-musl-x86_64.so.1
     before: setup
