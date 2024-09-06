@@ -32,6 +32,10 @@ on:
       comment_id:
         description: 'Id of comment in issue where to put workflow run status'
         required: false
+      editions:
+        description: 'Comma-separated list of editions to build'
+        required: false
+        type: string
 
 env:
 
@@ -686,7 +690,7 @@ jobs:
       - git_info
       - go_generate
       - workflow_render
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || contains(github.event.inputs.editions, 'EE') }}
     env:
       WERF_ENV: "EE"
     # <template: build_template>
@@ -1003,7 +1007,7 @@ jobs:
       - git_info
       - go_generate
       - workflow_render
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || contains(github.event.inputs.editions, 'SE') }}
     env:
       WERF_ENV: "SE"
     # <template: build_template>
@@ -1320,7 +1324,7 @@ jobs:
       - git_info
       - go_generate
       - workflow_render
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || contains(github.event.inputs.editions, 'BE') }}
     env:
       WERF_ENV: "BE"
     # <template: build_template>
@@ -1637,7 +1641,7 @@ jobs:
       - git_info
       - go_generate
       - workflow_render
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || contains(github.event.inputs.editions, 'CE') }}
     env:
       WERF_ENV: "CE"
     # <template: build_template>
