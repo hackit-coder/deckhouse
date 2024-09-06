@@ -8,7 +8,7 @@ kind: CronJob
 metadata:
   name: d8-etcd-backup
   namespace: kube-system
-  {{- include "helm_lib_module_labels" (list . (dict "app" "d8-etcd-backup" "master")) | nindent 2 }}
+  {{- include "helm_lib_module_labels" (list . (dict "app" "d8-etcd-backup")) | nindent 2 }}
 spec:
   schedule: "0 0 * * *"
   concurrencyPolicy: Forbid
