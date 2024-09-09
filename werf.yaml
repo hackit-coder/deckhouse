@@ -78,7 +78,7 @@ shell:
   install:
   - cd /src
   - autoreconf -fi
-      ./configure \
+  - ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --mandir=/usr/share/man \
