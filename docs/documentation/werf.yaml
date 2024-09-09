@@ -50,8 +50,8 @@ shell:
         gem update --system 3.2.3
         gem install bundler -v 2.4.3
 
-      cd /srv/jekyll-data/documentation/
-      bundle install
+        cd /srv/jekyll-data/documentation/
+        bundle install
   setup:
     - |
         cd /srv/jekyll-data/documentation/
