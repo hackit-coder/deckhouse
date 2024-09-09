@@ -54,6 +54,7 @@ shell:
         bundle install
   setup:
     - |
+        set -x
         cd /srv/jekyll-data/documentation/
         ./modules_list.sh 1>_data/modules.yaml
         cat modules_menu_skip  | cut -d\- -f 2-  | jq -nRc '[inputs] | map({"name":.}) | {module_names:.}' > _data/exclude.json
