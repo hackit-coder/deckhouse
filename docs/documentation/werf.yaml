@@ -22,13 +22,12 @@ configVersion: 1
 ---
 image: web
 from: {{ .Images.BASE_NGINX_ALPINE }}
-ansible:
+shell:
   setup:
-  - name: "Setup /etc/nginx/nginx.conf"
-    copy:
-      content: |
-        {{- .Files.Get ".werf/nginx.conf" | nindent 8 }}
-      dest: /etc/nginx/nginx.conf
+  - |
+    cat <<"EOD" > /etc/nginx/nginx.conf
+    {{- .Files.Get ".werf/nginx.conf" | nindent 4 }}
+    EOD
 import:
 - image: static-pages
   add: /app/_site
