@@ -3,3 +3,4 @@ scopes:
   - networking
 crds:
   - ee/se/modules/380-metallb/crds/*.yaml
+  - ee/se/modules/380-metallb/crds/internal/*.yaml
