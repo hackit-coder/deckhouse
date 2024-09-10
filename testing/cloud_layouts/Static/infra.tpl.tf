@@ -128,7 +128,7 @@ data "openstack_images_image_v2" "redos_image" {
 
 data "openstack_images_image_v2" "rosa_image" {
   most_recent = true
-  visibility  = "shared"
+  visibility  = "private"
   name        = "rosa-server-cobalt-20240613"
 }
 
