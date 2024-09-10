@@ -377,7 +377,7 @@ function prepare_environment() {
     # use different users for different OSs
     ssh_user="astra"
     ssh_user_system="altlinux"
-    ssh_user_worker="redos"
+    ssh_user_worker="centos"
     ;;
   esac
 

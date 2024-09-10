@@ -126,6 +126,12 @@ data "openstack_images_image_v2" "redos_image" {
   name        = "redos-STD-MINIMAL-8.0.0"
 }
 
+data "openstack_images_image_v2" "rosa_image" {
+  most_recent = true
+  visibility  = "shared"
+  name        = "rosa-server-cobalt-20240613"
+}
+
 resource "openstack_blockstorage_volume_v3" "master" {
   name                 = "candi-${PREFIX}-master-0"
   size                 = "30"
@@ -227,7 +233,7 @@ resource "openstack_compute_instance_v2" "system" {
 resource "openstack_blockstorage_volume_v3" "worker" {
   name                 = "candi-${PREFIX}-worker-0"
   size                 = "30"
-  image_id             = data.openstack_images_image_v2.redos_image.id
+  image_id             = data.openstack_images_image_v2.rosa_image.id
   volume_type          = var.volume_type
   availability_zone    = var.az_zone
   enable_online_resize = true
@@ -241,7 +247,7 @@ resource "openstack_compute_instance_v2" "worker" {
   flavor_name = var.flavor_name_large
   key_pair = "candi-${PREFIX}-key"
   availability_zone = var.az_zone
-  user_data            = "${file("redos-instance-bootstrap.sh")}"
+  user_data            = "${file("rosa-instance-bootstrap.sh")}"
 
   network {
     port = openstack_networking_port_v2.worker_internal_without_security.id
