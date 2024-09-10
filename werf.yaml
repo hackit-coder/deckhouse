@@ -320,14 +320,14 @@ shell:
   setup:
   - |
 {{- range $key := list "default" "managed" "minimal" }}
-      {{- range $_, $edition := $.Editions }}
     cat <<"EOD" > /deckhouse/modules/values-{{ $key }}.yaml
+      {{- range $_, $edition := $.Editions }}
     {{- $.Files.Get (printf "%s/values-%s.yaml" $edition.modulesDir $key ) | nindent 4 }}
-    EOD
         {{- if eq $.Env $edition.name }}
            {{- break -}}
         {{- end }}
      {{- end }}
+    EOD
 {{- end }}
 
     cat <<"EOD" > /deckhouse/version
