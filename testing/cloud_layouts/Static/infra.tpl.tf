@@ -36,6 +36,13 @@ provider "openstack" {
   region = var.region
 }
 
+locals {
+  worker_images = {
+    "redos" = data.openstack_images_image_v2.redos_image.id
+    "rosa" = data.openstack_images_image_v2.rosa_image.id
+  }
+}
+
 data "openstack_networking_network_v2" "external" {
   name = "external-network"
 }
@@ -85,6 +92,7 @@ resource "openstack_networking_port_v2" "system_internal_without_security" {
 }
 
 resource "openstack_networking_port_v2" "worker_internal_without_security" {
+  for_each = { for image_name, image_id in local.worker_images : image_name => image_id }
   network_id = openstack_networking_network_v2.internal.id
   admin_state_up = "true"
   fixed_ip {
@@ -231,9 +239,10 @@ resource "openstack_compute_instance_v2" "system" {
 }
 
 resource "openstack_blockstorage_volume_v3" "worker" {
-  name                 = "candi-${PREFIX}-worker-0"
+  for_each = { for image_name, image_id in local.worker_images : image_name => image_id }
+  name                 = "candi-${PREFIX}-worker-${each.key}"
   size                 = "30"
-  image_id             = data.openstack_images_image_v2.rosa_image.id
+  image_id             = each.value
   volume_type          = var.volume_type
   availability_zone    = var.az_zone
   enable_online_resize = true
@@ -243,18 +252,19 @@ resource "openstack_blockstorage_volume_v3" "worker" {
 }
 
 resource "openstack_compute_instance_v2" "worker" {
-  name = "candi-${PREFIX}-worker-0"
+  for_each = { for image_name, image_id in local.worker_images : image_name => image_id }
+  name = "candi-${PREFIX}-worker-${each.key}"
   flavor_name = var.flavor_name_large
   key_pair = "candi-${PREFIX}-key"
   availability_zone = var.az_zone
-  user_data            = "${file("rosa-instance-bootstrap.sh")}"
+  user_data            = "${file("${each.key}-instance-bootstrap.sh")}"
 
   network {
-    port = openstack_networking_port_v2.worker_internal_without_security.id
+    port = openstack_networking_port_v2.worker_internal_without_security[each.key].id
   }
 
   block_device {
-    uuid             = openstack_blockstorage_volume_v3.worker.id
+    uuid             = openstack_blockstorage_volume_v3.worker[each.key].id
     source_type      = "volume"
     destination_type = "volume"
     boot_index       = 0
@@ -281,7 +291,11 @@ output "system_ip_address_for_ssh" {
 }
 
 output "worker_ip_address_for_ssh" {
-  value = lookup(openstack_compute_instance_v2.worker.network[0], "fixed_ip_v4")
+  value = lookup(openstack_compute_instance_v2.worker["redos"].network[0], "fixed_ip_v4")
+}
+
+output "worker_rosa_ip_address_for_ssh" {
+  value = lookup(openstack_compute_instance_v2.worker["rosa"].network[0], "fixed_ip_v4")
 }
 
 output "bastion_ip_address_for_ssh" {

@@ -377,7 +377,8 @@ function prepare_environment() {
     # use different users for different OSs
     ssh_user="astra"
     ssh_user_system="altlinux"
-    ssh_user_worker="centos"
+    ssh_user_worker="redos"
+    ssh_rosa_user_worker="centos"
     ;;
   esac
 
@@ -534,6 +535,10 @@ function bootstrap_static() {
     >&2 echo "ERROR: can't parse worker_ip from terraform.log"
     return 1
   fi
+  if ! worker_rosa_ip="$(grep -m1 "worker_rosa_ip_address_for_ssh" "$cwd/terraform.log"| cut -d "=" -f2 | tr -d "\" ")" ; then
+      >&2 echo "ERROR: can't parse worker_ip from terraform.log"
+      return 1
+    fi
   if ! bastion_ip="$(grep -m1 "bastion_ip_address_for_ssh" "$cwd/terraform.log"| cut -d "=" -f2 | tr -d "\" ")" ; then
     >&2 echo "ERROR: can't parse bastion_ip from terraform.log"
     return 1
@@ -578,6 +583,16 @@ function bootstrap_static() {
       return 1
     fi
     >&2 echo "ERROR: worker instance isn't bootstrapped yet (attempt #$attempt of $waitForInstancesAreBootstrappedAttempts)"
+    sleep 5
+  done
+  attempt=0
+  until $ssh_command -i "$ssh_private_key_path" $ssh_bastion "$ssh_rosa_user_worker@$worker_rosa_ip" /usr/local/bin/is-instance-bootstrapped; do
+    attempt=$(( attempt + 1 ))
+    if [ "$attempt" -gt "$waitForInstancesAreBootstrappedAttempts" ]; then
+      >&2 echo "ERROR: rosa worker instance couldn't get bootstrapped"
+      return 1
+    fi
+    >&2 echo "ERROR: rosa worker instance isn't bootstrapped yet (attempt #$attempt of $waitForInstancesAreBootstrappedAttempts)"
     sleep 5
   done
 
@@ -677,8 +692,8 @@ ENDSSH
 
   # Prepare resources.yaml for starting working node with CAPS
   # shellcheck disable=SC2016
-  env b64_SSH_KEY="$(base64 -w0 "$ssh_private_key_path")" WORKER_USER="$ssh_user_worker" WORKER_IP="$worker_ip" \
-      envsubst '${b64_SSH_KEY} ${WORKER_USER} ${WORKER_IP}' \
+  env b64_SSH_KEY="$(base64 -w0 "$ssh_private_key_path")" WORKER_USER="$ssh_user_worker" WORKER_IP="$worker_ip" WORKER_ROSA_IP="$worker_rosa_ip" WORKER_ROSA_USER="$ssh_rosa_user_worker"\
+      envsubst '${b64_SSH_KEY} ${WORKER_USER} ${WORKER_IP} ${WORKER_ROSA_IP} ${WORKER_ROSA_USER}' \
       <"$cwd/resources.tpl.yaml" >"$cwd/resources.yaml"
 
   # Bootstrap
