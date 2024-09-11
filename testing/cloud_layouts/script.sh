@@ -537,8 +537,7 @@ function bootstrap_static() {
   fi
   if ! worker_rosa_ip="$(grep -m1 "worker_rosa_ip_address_for_ssh" "$cwd/terraform.log"| cut -d "=" -f2 | tr -d "\" ")" ; then
       >&2 echo "ERROR: can't parse worker_ip from terraform.log"
-      return 1
-    fi
+  fi
   if ! bastion_ip="$(grep -m1 "bastion_ip_address_for_ssh" "$cwd/terraform.log"| cut -d "=" -f2 | tr -d "\" ")" ; then
     >&2 echo "ERROR: can't parse bastion_ip from terraform.log"
     return 1
@@ -745,8 +744,13 @@ ENDSSH
 export PATH="/opt/deckhouse/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export LANG=C
 set -Eeuo pipefail
+if [ -n "${worker_rosa_ip}" ];
+  node_count=4
+else
+  node_count=3
+fi
 kubectl get nodes -o wide
-kubectl get nodes -o json | jq -re '.items | length == 4' >/dev/null
+kubectl get nodes -o json | jq -re ".items | length == ${node_count}" >/dev/null
 kubectl get nodes -o json | jq -re '[ .items[].status.conditions[] | select(.type == "Ready") ] | map(.status == "True") | all' >/dev/null
 ENDSSH
       registration_failed=""
