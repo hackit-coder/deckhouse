@@ -739,16 +739,16 @@ ENDSSH
 
   registration_failed=
   >&2 echo 'Waiting until Node registration finishes ...'
+  if [ -n "${worker_rosa_ip}" ]; then
+    node_count=4
+  else
+    node_count=3
+  fi
   for ((i=1; i<=20; i++)); do
     if $ssh_command -i "$ssh_private_key_path" $ssh_bastion "$ssh_user@$master_ip" sudo su -c /bin/bash <<"ENDSSH"; then
 export PATH="/opt/deckhouse/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export LANG=C
 set -Eeuo pipefail
-if [ -n "${worker_rosa_ip}" ]; then
-  node_count=4
-else
-  node_count=3
-fi
 kubectl get nodes -o wide
 kubectl get nodes -o json | jq -re ".items | length == ${node_count}" >/dev/null
 kubectl get nodes -o json | jq -re '[ .items[].status.conditions[] | select(.type == "Ready") ] | map(.status == "True") | all' >/dev/null
