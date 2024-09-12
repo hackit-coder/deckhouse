@@ -101,7 +101,7 @@ shell:
         cat <<"EOD" > /srv/jekyll-data/site/_data/topnav.yml
         {{- .Files.Get (printf "%smodules/810-documentation/images/web/site/_data/topnav.yml" .ModulePath) | nindent 8 }}
         EOD
-        cat <<"EOD" > /srv/jekyll-data/site/_includes/footer.htm
+        cat <<"EOD" > /srv/jekyll-data/site/_includes/footer.html
         {{- .Files.Get (printf "%smodules/810-documentation/images/web/site/_includes/footer.html" .ModulePath) | nindent 8 }}
         EOD
 
