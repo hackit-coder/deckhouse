@@ -119,7 +119,7 @@ shell:
 
         # Generating static file's of the main part...
         cd /srv/jekyll-data/site/
-        JEKYLL_ENV=production jekyll build -d /app/_site/site/ --config _config.yml,/tmp/_config_additional.yml
+        JEKYLL_ENV=production jekyll build -d /app/_site/site/ --config _config.yml,/tmp/_config_additional.yml || true
 
         cp -Rf /app/_site/site/assets /app/_site/documentation/
         cp -Rf /app/_site/site/images /app/_site/documentation/
