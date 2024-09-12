@@ -36,7 +36,6 @@ import:
 ---
 image: static-pages
 from: {{ .Images.BASE_JEKYLL }}
-fromCacheVersion: 20210713
 docker:
   ENV:
     LANG: en_US.UTF-8
@@ -44,6 +43,7 @@ docker:
 shell:
   install:
     - |
+        set -x
         # Install tools
         apk add rsync jq
         wget https://github.com/mikefarah/yq/releases/download/{{ .YQ4_VERSION }}/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
@@ -55,6 +55,7 @@ shell:
         bundle install
   setup:
     - |
+        set -x
         # Get modules data
         cd /srv/jekyll-data/documentation/
         ./modules_list.sh 1>_data/modules.yaml

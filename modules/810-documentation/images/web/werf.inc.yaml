@@ -30,7 +30,6 @@ shell:
         bundle install
   setup:
     - |
-        set -x
         # Create modules.yml
         cd /srv/jekyll-data/documentation/
         export MODULES_DIR=/comparison
