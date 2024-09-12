@@ -10,4 +10,3 @@ for i in $(find . -regex '.*.md' -print); do
     sed -i "1apermalink: $PERMALINK" $i
   fi
 done
-
