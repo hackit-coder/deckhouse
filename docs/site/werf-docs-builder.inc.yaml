@@ -1,21 +1,16 @@
 ---
 artifact: docs-builder-artifact
 from: {{ .ctx.Images.BASE_GOLANG_20_ALPINE }}
-ansible:
+shell:
   install:
-    - name: Download dependencies
-      shell: |
+    - |
+        cd /go/src/app
         go mod tidy
-      args:
-        executable: /bin/sh
-        chdir: /go/src/app
   setup:
-    - name: Build docs-builder
-      shell: |
+    - |
+      # Build docs-builder
+        cd /go/src/app
         go build -ldflags "-w -s" -v -o /go/src/app/server /go/src/app/
-      args:
-        executable: /bin/sh
-        chdir: /go/src/app
 git:
   - add: /docs/site/backends/docs-builder
     to: /go/src/app
