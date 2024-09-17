@@ -110,11 +110,6 @@ shell:
         mkdir -m 777 -p /app/_site/
         JEKYLL_ENV=production jekyll build -d /app/_site/documentation/ --config _config.yml,/tmp/_config_additional.yml
 
-        # Get Deckhouse CLI version
-        cd /srv/jekyll-data/documentation/_data/
-        grep -E '^\{\{- \$version' /src/registrypackages/werf.inc.yaml | sed -E 's/.+\"(.+)\".+/version: "\1"/' >> deckhouse-cli.yaml
-        echo "Deckhouse CLI version: $(cat deckhouse-cli.yaml)"
-
         # Generating static file's of the main part...
         cd /srv/jekyll-data/site/
         JEKYLL_ENV=production jekyll build -d /app/_site/site/ --config _config.yml,/tmp/_config_additional.yml

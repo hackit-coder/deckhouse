@@ -97,10 +97,6 @@ shell:
         sed '/^bashible:/r version_map_addition.yml' version_map.yml >> supported_versions.yml
         # Convert editions structure
         yq e -j editions-source.yaml | jq -M 'reduce .editions[] as $item ({}; .[$item.name | ascii_downcase] = $item)' > editions.json
-        # Get Deckhouse CLI version
-        grep -E '^\{\{- \$version' /src/registrypackages/werf.inc.yaml | sed -E 's/.+\"(.+)\".+/version: "\1"/' >> deckhouse-cli.yaml
-        echo "Deckhouse CLI version: $(cat deckhouse-cli.yaml)"
-
         cd /srv/jekyll-data/documentation/
         mkdir -m 777 -p /app/_site/
         {{- if eq $.Env "development" }}
