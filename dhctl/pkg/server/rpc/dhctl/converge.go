@@ -292,6 +292,7 @@ func (s *Service) converge(
 			return &pb.ConvergeResult{Err: fmt.Errorf("open kubernetes connection: %w", err).Error()}
 		}
 		checkParams.KubeClient = kubeCl
+		convergeParams.KubeClient = kubeCl
 	} else {
 		var sshClient *ssh.Client
 		err = log.Process("default", "Preparing SSH client", func() error {
