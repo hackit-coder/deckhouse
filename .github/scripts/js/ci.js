@@ -711,6 +711,7 @@ const detectSlashCommand = ({ comment , context, core}) => {
     if (workflow_id) {
       let ver = [];
       let cri = [];
+      let edition = "fe";
       for (const line of lines) {
         let useParts = line.split('/e2e/use/cri/');
         if (useParts[1]) {
@@ -720,10 +721,14 @@ const detectSlashCommand = ({ comment , context, core}) => {
         if (useParts[1]) {
           ver.push(useParts[1]);
         }
+        useParts = line.split('/e2e/use/edition/');
+        if (useParts[1]) {
+          edition = useParts[1]
+        }
       }
 
       inputs = {
-        test_config: JSON.stringify({ cri: cri.join(','), ver: ver.join(','), editions: "FE" }),
+        test_config: JSON.stringify({ cri: cri.join(','), ver: ver.join(','), edition: edition }),
       }
 
       // Add initial_ref_slug input when e2e command has two args.
@@ -1199,6 +1204,8 @@ You can trigger release related actions by commenting on this issue:
   - \`git_ref_2\` is a release-* or main branch
 - \`/e2e/use/k8s/<version>\` specifies which Kubernetes version to use for e2e test.
   - \`version\` is one of \`${availableKubernetesVersions}\`
+- \`/e2e/use/edition/<edition>\` specifies which edition to use for e2e test.
+  - \`edition\` is one of \`${availableEditions}\`
 - \`/build git_ref\` will run build for release related refs.
   - \`git_ref\` is ${possibleGitRefs}
 

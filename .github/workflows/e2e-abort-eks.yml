@@ -82,6 +82,7 @@ jobs:
       LAYOUT: WithoutNAT
       KUBERNETES_VERSION: "1.26"
       EVENT_LABEL: ${{ github.event.label.name }}
+      WERF_ENV: "${{ fromJson(inputs.test_config).edition || 'FE'}}"
     runs-on: [self-hosted, e2e-common]
     steps:
 
@@ -363,6 +364,7 @@ jobs:
       LAYOUT: WithoutNAT
       KUBERNETES_VERSION: "1.27"
       EVENT_LABEL: ${{ github.event.label.name }}
+      WERF_ENV: "${{ fromJson(inputs.test_config).edition || 'FE'}}"
     runs-on: [self-hosted, e2e-common]
     steps:
 
@@ -644,6 +646,7 @@ jobs:
       LAYOUT: WithoutNAT
       KUBERNETES_VERSION: "1.28"
       EVENT_LABEL: ${{ github.event.label.name }}
+      WERF_ENV: "${{ fromJson(inputs.test_config).edition || 'FE'}}"
     runs-on: [self-hosted, e2e-common]
     steps:
 
@@ -925,6 +928,7 @@ jobs:
       LAYOUT: WithoutNAT
       KUBERNETES_VERSION: "1.29"
       EVENT_LABEL: ${{ github.event.label.name }}
+      WERF_ENV: "${{ fromJson(inputs.test_config).edition || 'FE'}}"
     runs-on: [self-hosted, e2e-common]
     steps:
 
@@ -1206,6 +1210,7 @@ jobs:
       LAYOUT: WithoutNAT
       KUBERNETES_VERSION: "1.30"
       EVENT_LABEL: ${{ github.event.label.name }}
+      WERF_ENV: "${{ fromJson(inputs.test_config).edition || 'FE'}}"
     runs-on: [self-hosted, e2e-common]
     steps:
 
@@ -1487,6 +1492,7 @@ jobs:
       LAYOUT: WithoutNAT
       KUBERNETES_VERSION: "1.27"
       EVENT_LABEL: ${{ github.event.label.name }}
+      WERF_ENV: "${{ fromJson(inputs.test_config).edition || 'FE'}}"
     runs-on: [self-hosted, e2e-common]
     steps:
 
