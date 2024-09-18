@@ -529,13 +529,8 @@ func DeckhouseRegistrySecret(registry config.RegistryData) *apiv1.Secret {
 	return ret
 }
 
-func generateSecret(name, namespace string, data map[string][]byte, labels map[string]string, heritageExclude bool) *apiv1.Secret {
-	var preparedLabels map[string]string
-	if !heritageExclude {
-		preparedLabels = map[string]string{"heritage": "deckhouse"}
-	} else {
-		preparedLabels = make(map[string]string)
-	}
+func generateSecret(name, namespace string, data map[string][]byte, labels map[string]string) *apiv1.Secret {
+	preparedLabels := make(map[string]string)
 	for key, value := range labels {
 		preparedLabels[key] = value
 	}
@@ -558,8 +553,9 @@ func SecretWithTerraformState(data []byte) *apiv1.Secret {
 		map[string][]byte{
 			"cluster-tf-state.json": data,
 		},
-		nil,
-		false,
+		map[string]string{
+			"heritage": "deckhouse",
+		},
 	)
 }
 
@@ -577,7 +573,6 @@ func SecretWithClusterConfig(data []byte) *apiv1.Secret {
 		"kube-system",
 		map[string][]byte{"cluster-configuration.yaml": data},
 		nil,
-		true,
 	)
 }
 
@@ -591,7 +586,12 @@ func SecretWithProviderClusterConfig(configData, discoveryData []byte) *apiv1.Se
 		data["cloud-provider-discovery-data.json"] = discoveryData
 	}
 
-	return generateSecret("d8-provider-cluster-configuration", "kube-system", data, nil, true)
+	return generateSecret(
+		"d8-provider-cluster-configuration",
+		"kube-system",
+		data,
+		nil,
+	)
 }
 
 func SecretWithStaticClusterConfig(configData []byte) *apiv1.Secret {
@@ -599,8 +599,14 @@ func SecretWithStaticClusterConfig(configData []byte) *apiv1.Secret {
 	if configData != nil {
 		data["static-cluster-configuration.yaml"] = configData
 	}
-
-	return generateSecret("d8-static-cluster-configuration", "kube-system", data, nil, false)
+	return generateSecret(
+		"d8-static-cluster-configuration",
+		"kube-system",
+		data,
+		map[string]string{
+			"heritage": "deckhouse",
+		},
+	)
 }
 
 func SecretNameForNodeTerraformState(nodeName string) string {
@@ -620,8 +626,8 @@ func SecretWithNodeTerraformState(nodeName, nodeGroup string, data, settings []b
 			"node.deckhouse.io/node-group":      nodeGroup,
 			"node.deckhouse.io/node-name":       nodeName,
 			"node.deckhouse.io/terraform-state": "",
+			"heritage":                          "deckhouse",
 		},
-		false,
 	)
 }
 
@@ -640,8 +646,9 @@ func SecretMasterDevicePath(nodeName string, devicePath []byte) *apiv1.Secret {
 		map[string][]byte{
 			nodeName: devicePath,
 		},
-		map[string]string{},
-		false,
+		map[string]string{
+			"heritage": "deckhouse",
+		},
 	)
 }
 
