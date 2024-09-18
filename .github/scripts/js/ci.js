@@ -435,16 +435,19 @@ const setCRIAndVersionsFromInputs = ({ context, core, kubernetesDefaultVersion }
   let cri = [defaultCRI];
   let ver = [defaultVersion];
 
-  if (!!context.payload.inputs.cri) {
-    const requested_cri = context.payload.inputs.cri.toLowerCase();
+  let test_config = JSON.parse(context.payload.inputs.test_config)
+
+  if (!!test_config.cri) {
+    const requested_cri = test_config.cri.toLowerCase();
     cri = requested_cri.split(',');
   }
-  if (!!context.payload.inputs.ver) {
-    const requested_ver = context.payload.inputs.ver.replace(/\./g, '_');
+  if (!!test_config.ver) {
+    const requested_ver = test_config.ver.replace(/\./g, '_');
     ver = requested_ver.split(',');
   }
 
-  core.info(`workflow_dispatch is release related. e2e inputs: cri='${context.payload.inputs.cri}' and version='${context.payload.inputs.ver}'.`);
+  core.info(`e2e inputs: '${JSON.stringify(context.payload.inputs)}'`);
+  core.info(`workflow_dispatch is release related. e2e parsed inputs: cri='${test_config.cri}' and version='${test_config.ver}'.`);
 
   for (const out_cri of cri) {
     for (const out_ver of ver) {
@@ -720,8 +723,7 @@ const detectSlashCommand = ({ comment , context, core}) => {
       }
 
       inputs = {
-        cri: cri.join(','),
-        ver: ver.join(','),
+        test_config: JSON.stringify({ cri: cri.join(','), ver: ver.join(','), editions: "FE" }),
       }
 
       // Add initial_ref_slug input when e2e command has two args.
