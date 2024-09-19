@@ -37,3 +37,17 @@ properties:
       enum: [ubuntu-lts, centos, debian]
     description: |
       Names of available bashible OS bundles to reduce Helm release size.
+  allowedKubernetesVersions:
+    type: array
+    default:
+      - "1.26"
+      - "1.27"
+      - "1.28"
+      - "1.29"
+      - "1.30"
+    x-examples:
+      - ["1.27", "1.28"]
+    items:
+      type: string
+    description: |
+      Names of available Kubernetes versions to reduce Helm release size.
