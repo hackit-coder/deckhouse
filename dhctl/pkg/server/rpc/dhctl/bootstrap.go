@@ -129,7 +129,7 @@ func (s *Service) startBootstrapperReceiver(
 	go func() {
 		for {
 			request, err := server.Recv()
-			if errors.Is(err, io.EOF) || errors.Is(err, context.Canceled) {
+			if errors.Is(err, io.EOF) {
 				close(doneCh)
 				return
 			}
