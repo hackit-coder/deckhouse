@@ -35,7 +35,8 @@ properties:
         type: array
         items:
           type: string
-          pattern: '^[0-9a-zA-Z\.-_]+$'
+          pattern: '^[0-9a-zA-Z\.-]+$'
+          maxLength: 48
       pkiChecksum:
         type: string
         pattern: '^[0-9a-zA-Z]+$'
