@@ -1,25 +1,25 @@
 ---
-image: {{ $.ModuleName }}/{{ $.ImageName }}
+image: {{ .ModuleName }}/{{ .ImageName }}
 fromImage: common/distroless
 import:
-  - artifact: {{ $.ModuleName }}/etcd-artifact
-    add: /
-    to: /bin
-    includePaths:
-    - etcdctl
-    before: setup
-  - artifact: {{ $.ModuleName }}/etcd-artifact
-    add: /bin
-    to: /bin
-    includePaths:
-    - busybox
-    before: setup
-  - artifact: {{ $.ModuleName }}/etcd-artifact
-    add: /lib
-    to: /lib
-    includePaths:
-    - ld-musl-x86_64.so.1
-    before: setup    
+- artifact: {{ .ModuleName }}/etcd-artifact
+  add: /
+  to: /bin
+  includePaths:
+  - etcdctl
+  before: setup
+- artifact: {{ .ModuleName }}/etcd-artifact
+  add: /bin
+  to: /bin
+  includePaths:
+  - busybox
+  before: setup
+- artifact: {{ .ModuleName }}/etcd-artifact
+  add: /lib
+  to: /lib
+  includePaths:
+  - ld-musl-x86_64.so.1
+  before: setup
 shell:
   setup:
   - /bin/busybox ln -s /bin/busybox /bin/sh
