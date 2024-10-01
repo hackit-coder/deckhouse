@@ -5,4 +5,3 @@ scopes:
 crds:
   - modules/110-istio/crds/*.yaml
   - ee/modules/110-istio/crds/*.yaml
- 
