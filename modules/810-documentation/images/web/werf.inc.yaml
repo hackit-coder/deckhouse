@@ -29,6 +29,9 @@ shell:
         bundle install
   setup:
     - |
+        echo "Ruby: $(ruby --version)"
+        echo "Gem: $(gem --version)"
+        bundle --version
         # Create modules.yml
         cd /srv/jekyll-data/documentation/
         export MODULES_DIR=/comparison
@@ -116,7 +119,6 @@ shell:
 
         cp -Rf /app/_site/site/assets /app/_site/documentation/
         cp -Rf /app/_site/site/images /app/_site/documentation/
-        #cp -Rf /app/_site/site/includes /app/_site/documentation/
         cp -Rf /app/_site/site/ru/includes /app/_site/documentation/ru
         cp -Rf /app/_site/site/en/includes /app/_site/documentation/en
         cp -Rf /app/_site/site/ru /app/_site/documentation/

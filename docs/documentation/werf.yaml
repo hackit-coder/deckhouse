@@ -41,19 +41,11 @@ docker:
     LANG: en_US.UTF-8
     LC_ALL: en_US.UTF-8
 shell:
-  install:
-    - |
-        # Install tools
-        apk add rsync jq
-        wget https://github.com/mikefarah/yq/releases/download/{{ .YQ4_VERSION }}/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
-        # Update system rubygems and install gem bundler
-        gem update --system 3.2.3
-        gem install bundler -v 2.4.3
-        # Install dependencies
-        cd /srv/jekyll-data/documentation/
-        bundle install
   setup:
     - |
+        echo "Ruby: $(ruby --version)"
+        echo "Gem: $(gem --version)"
+        bundle --version
         # Get modules data
         cd /srv/jekyll-data/documentation/
         ./modules_list.sh 1>_data/modules.yaml

@@ -54,16 +54,11 @@ shell:
 artifact: web-static
 from: {{ .Images.BASE_JEKYLL }}
 shell:
-  install:
-    - |
-        apk add rsync
-        gem update --system 3.2.3
-        gem install bundler -v 2.4.3
-        # Install Dependencies
-        cd /srv/jekyll-data/site/
-        bundle install
   setup:
     - |
+        echo "Ruby: $(ruby --version)"
+        echo "Gem: $(gem --version)"
+        bundle --version
         # Build static files
         cd /srv/jekyll-data/site/
         export JEKYLL_ENV=production
