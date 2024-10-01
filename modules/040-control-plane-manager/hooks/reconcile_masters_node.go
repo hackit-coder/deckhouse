@@ -49,7 +49,7 @@ var _ = sdk.RegisterFunc(&go_hook.HookConfig{
 			FilterFunc: reconcicleMastersFilterNode,
 		},
 	},
-}, dependency.WithExternalDependencies(handleRecicleMastersNode))
+}, handleRecicleMastersNode)
 
 func reconcicleMastersFilterNode(unstructured *unstructured.Unstructured) (go_hook.FilterResult, error) {
 	var node corev1.Node
@@ -70,7 +70,7 @@ type recicleMastersNode struct {
 	Name string
 }
 
-func handleRecicleMastersNode(input *go_hook.HookInput, dc dependency.Container) error {
+func handleRecicleMastersNode(input *go_hook.HookInput) error {
 	snap := input.Snapshots["master_nodes"]
 
 	if len(snap) == 0 {
