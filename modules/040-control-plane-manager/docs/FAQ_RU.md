@@ -516,7 +516,7 @@ spec:
 
 ### Что делается автоматически
 
-Автоматически запускается CronJob `kube-system/d8-etcd-backup` в 00:00 по UTC+0. Результат сохраняется в `/var/lib/etcd/etcd-backup.snapshot` на случайном master в кластере.
+Автоматически запускаются CronJob `kube-system/d8-etcd-backup-*` в 00:00 по UTC+0. Результат сохраняется в `/var/lib/etcd/etcd-backup.snapshot` на всех нодах с `control-plane` в кластере.
 
 ### Как сделать бэкап etcd?
 
