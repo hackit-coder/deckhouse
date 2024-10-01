@@ -4,11 +4,7 @@ memory: 40Mi
 {{- end }}
 {{- if .Values.global.clusterIsBootstrapped }}
   {{- if hasKey .Values.controlPlaneManager.internal "mastersNode" }}
-    {{- $MastersNode := .Values.controlPlaneManager.internal.mastersNode }}
-  {{- end }}
-{{- end }}
-
-{{- range $node := $MastersNode }}
+    {{- range $node := .Values.controlPlaneManager.internal.mastersNode }}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -71,4 +67,6 @@ spec:
             name: etcd-data
           - name: tmp
             emptyDir: {}
+    {{- end }}
+  {{- end }}
 {{- end }}
