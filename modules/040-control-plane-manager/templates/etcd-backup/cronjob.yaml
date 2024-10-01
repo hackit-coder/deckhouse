@@ -11,7 +11,7 @@ kind: CronJob
 metadata:
   name: d8-etcd-backup-{{ $node | sha256sum | trunc 48 }}
   namespace: kube-system
-  {{- include "helm_lib_module_labels" (list . (dict "app" "d8-etcd-backup")) | nindent 2 }}
+  {{- include "helm_lib_module_labels" (list $ (dict "app" "d8-etcd-backup")) | nindent 2 }}
 spec:
   schedule: "0 0 * * *"
   concurrencyPolicy: Forbid
@@ -22,9 +22,9 @@ spec:
       backoffLimit: 0
       template:
         spec:
-          {{- include "helm_lib_module_pod_security_context_run_as_user_root" . | nindent 10 }}
-          {{- include "helm_lib_priority_class" (tuple . "cluster-low") | nindent 10 }}
-          {{- include "helm_lib_tolerations" (tuple . "any-node") | nindent 10 }}
+          {{- include "helm_lib_module_pod_security_context_run_as_user_root" $ | nindent 10 }}
+          {{- include "helm_lib_priority_class" (tuple $ "cluster-low") | nindent 10 }}
+          {{- include "helm_lib_tolerations" (tuple $ "any-node") | nindent 10 }}
           nodeSelector:
             kubernetes.io/hostname: {{ $node }}
           imagePullSecrets:
@@ -34,8 +34,8 @@ spec:
           dnsPolicy: ClusterFirstWithHostNet
           containers:
           - name: backup
-            {{- include "helm_lib_module_container_security_context_read_only_root_filesystem_capabilities_drop_all" . | nindent 12 }}
-            image: {{ include "helm_lib_module_image" (list . "etcdBackup") }}
+            {{- include "helm_lib_module_container_security_context_read_only_root_filesystem_capabilities_drop_all" $ | nindent 12 }}
+            image: {{ include "helm_lib_module_image" (list $ "etcdBackup") }}
             imagePullPolicy: IfNotPresent
             command:
             - /bin/sh
@@ -45,8 +45,8 @@ spec:
             resources:
               requests:
               {{- include "helm_lib_module_ephemeral_storage_logs_with_extra" 50 | nindent 16 }}
-              {{- if not ( .Values.global.enabledModules | has "vertical-pod-autoscaler-crd") }}
-                {{- include "control_plane_manager_resources" . | nindent 16 }}
+              {{- if not ( $.Values.global.enabledModules | has "vertical-pod-autoscaler-crd") }}
+                {{- include "control_plane_manager_resources" $ | nindent 16 }}
               {{- end }}
             volumeMounts:
             - mountPath: /etc/kubernetes/pki/etcd
