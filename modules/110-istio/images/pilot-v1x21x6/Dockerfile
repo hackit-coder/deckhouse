@@ -1,4 +1,4 @@
-# Based on https://github.com/istio/istio/blob/1.19.7/pilot/docker/Dockerfile.pilot
+# Based on https://github.com/istio/istio/blob/1.21.6/pilot/docker/Dockerfile.pilot
 ARG BASE_UBUNTU
 
 FROM docker.io/istio/pilot:1.21.6@sha256:c2aec3195dc7f50150c23d7dd891e6a15909f75db6fea9ddc954b63233c4406c as artifact

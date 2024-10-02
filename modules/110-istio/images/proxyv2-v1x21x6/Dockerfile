@@ -1,5 +1,5 @@
-# Based on https://github.com/istio/istio/blob/1.19.7/docker/Dockerfile.base
-#      and https://github.com/istio/istio/blob/1.19.7/pilot/docker/Dockerfile.proxyv2
+# Based on https://github.com/istio/istio/blob/1.21.6/docker/Dockerfile.base
+#      and https://github.com/istio/istio/blob/1.21.6/pilot/docker/Dockerfile.proxyv2
 ARG BASE_UBUNTU
 FROM docker.io/istio/proxyv2:1.21.6@sha256:a0afbbc8488060f8059e7fa04576edde01915d40576132dae83479b3abe5ce15 as artifact
 
