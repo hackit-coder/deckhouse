@@ -70,7 +70,7 @@ const istioValues = `
       applicationNamespaces: []
       globalVersion: "1.19.7"
       versionMap:
-	    "1.21.6":
+        "1.21.6":
           revision: "v1x21x6"
           fullVersion: "1.21.6"
           imageSuffix: "V1x21x6"
