@@ -6,9 +6,9 @@ FROM docker.io/istio/proxyv2:1.21.6@sha256:a0afbbc8488060f8059e7fa04576edde01915
 FROM $BASE_UBUNTU
 WORKDIR /
 
-# https://hub.docker.com/layers/istio/proxyv2/1.19.7/images/sha256-680eac0faff1835f994ba9047750d7cfe989e868324a933a38d6a6cb80779b33?context=explore
+# https://hub.docker.com/layers/istio/proxyv2/1.21.6/images/sha256-1d1cbdc7d940e09ce3d636897db74c77d4fff4c91f3c97fad96ed0bbb4c7eee4?context=explore
 # from image layer 17
-ARG proxy_version=istio-proxy:af5e0ef2c1473f0f4e61f78adf81c85ff6389f87
+ARG proxy_version=istio-proxy:78bd2d9b284978e170a49cd13decd5f952544489
 ARG istio_version=1.21.6
 ARG SIDECAR=envoy
 
