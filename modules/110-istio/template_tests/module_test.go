@@ -288,8 +288,8 @@ var _ = Describe("Module :: istio :: helm template :: main", func() {
 				}
 `))
 
-			Expect(iopV19.Field("spec.meshConfig.caCertificates").Exists()).To(BeFalse())
-			Expect(iopV19.Field("spec.values.meshNetworks").Exists()).To(BeFalse())
+			Expect(iopV21.Field("spec.meshConfig.caCertificates").Exists()).To(BeFalse())
+			Expect(iopV21.Field("spec.values.meshNetworks").Exists()).To(BeFalse())
 
 			Expect(f.KubernetesResource("Deployment", "d8-istio", "metadata-exporter").Exists()).To(BeFalse())
 			Expect(f.KubernetesResource("VerticalPodAutoscaler", "d8-istio", "metadata-exporter").Exists()).To(BeFalse())
@@ -379,9 +379,9 @@ neighbour-0:
 			Expect(f.KubernetesResource("Role", "d8-istio", "alliance:ingressgateway").Exists()).To(BeTrue())
 			Expect(f.KubernetesResource("RoleBinding", "d8-istio", "alliance:ingressgateway").Exists()).To(BeTrue())
 
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.meshConfig.caCertificates").String()).To(MatchJSON(`[{"pem": "---ROOT CA---"}]`))
-			Expect(iopV19.Field("spec.values.meshNetworks").Exists()).To(BeFalse())
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.meshConfig.caCertificates").String()).To(MatchJSON(`[{"pem": "---ROOT CA---"}]`))
+			Expect(iopV21.Field("spec.values.meshNetworks").Exists()).To(BeFalse())
 			Expect(f.KubernetesResource("PodMonitor", "d8-monitoring", "istio-ingressgateway").Exists()).To(BeTrue())
 		})
 	})
@@ -397,9 +397,9 @@ neighbour-0:
 		})
 		It("CLOUD_PROVIDER env should be 'none'", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Exists()).To(BeTrue())
-			Expect(iopV19.Field("spec.meshConfig.defaultConfig.proxyMetadata.CLOUD_PLATFORM").String()).To(Equal("none"))
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Exists()).To(BeTrue())
+			Expect(iopV21.Field("spec.meshConfig.defaultConfig.proxyMetadata.CLOUD_PLATFORM").String()).To(Equal("none"))
 		})
 	})
 
@@ -415,9 +415,9 @@ neighbour-0:
 		})
 		It("CLOUD_PROVIDER env should be 'aws'", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Exists()).To(BeTrue())
-			Expect(iopV19.Field("spec.meshConfig.defaultConfig.proxyMetadata.CLOUD_PLATFORM").String()).To(Equal("aws"))
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Exists()).To(BeTrue())
+			Expect(iopV21.Field("spec.meshConfig.defaultConfig.proxyMetadata.CLOUD_PLATFORM").String()).To(Equal("aws"))
 		})
 	})
 
@@ -504,9 +504,9 @@ users:
 			Expect(f.KubernetesResource("Role", "d8-istio", "alliance:ingressgateway").Exists()).To(BeTrue())
 			Expect(f.KubernetesResource("RoleBinding", "d8-istio", "alliance:ingressgateway").Exists()).To(BeTrue())
 
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.meshConfig.caCertificates").String()).To(MatchJSON(`[{"pem": "---ROOT CA---"}]`))
-			Expect(iopV19.Field("spec.values.global.meshNetworks").String()).To(MatchYAML(`
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.meshConfig.caCertificates").String()).To(MatchJSON(`[{"pem": "---ROOT CA---"}]`))
+			Expect(iopV21.Field("spec.values.global.meshNetworks").String()).To(MatchYAML(`
 a-b-c-1-2-3:
   endpoints:
   - fromRegistry: neighbour-0
@@ -530,8 +530,8 @@ a-b-c-1-2-3:
 		It("", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
 
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
 requests:
   cpu: 50m
   memory: 256Mi
@@ -582,8 +582,8 @@ static:
 		It("", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
 
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
 requests:
   cpu: 11m
   memory: 22Mi
@@ -615,8 +615,8 @@ updatePolicy:
 
 		It("", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.values.global.proxy.resources").String()).To(MatchYAML(`{}`))
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.values.global.proxy.resources").String()).To(MatchYAML(`{}`))
 		})
 	})
 
@@ -640,8 +640,8 @@ static:
 
 		It("", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.values.global.proxy.resources").String()).To(MatchYAML(`
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.values.global.proxy.resources").String()).To(MatchYAML(`
 requests:
   cpu: 200m
   memory: 256Mi
@@ -676,8 +676,8 @@ vpa:
 		It("", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
 
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
 limits:
   cpu: 253m
   memory: "1342177280"
@@ -733,8 +733,8 @@ vpa:
 		It("", func() {
 			Expect(f.RenderError).ShouldNot(HaveOccurred())
 
-			iopV19 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
-			Expect(iopV19.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
+			iopV21 := f.KubernetesResource("IstioOperator", "d8-istio", "v1x21x6")
+			Expect(iopV21.Field("spec.values.pilot.resources").String()).To(MatchYAML(`
 limits:
   cpu: 7500m
   memory: "833"
