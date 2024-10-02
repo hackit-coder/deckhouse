@@ -68,7 +68,7 @@ discovery:
 const istioValues = `
     internal:
       applicationNamespaces: []
-      globalVersion: "1.19.7"
+      globalVersion: "1.21.6"
       versionMap:
         "1.21.6":
           revision: "v1x21x6"
