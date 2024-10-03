@@ -146,7 +146,7 @@ func applyMetalLoadBalancerClassFilter(obj *unstructured.Unstructured) (go_hook.
 
 func handleLoadBalancers(input *go_hook.HookInput) error {
 	l2lbservices := make([]L2LBServiceConfig, 0, 4)
-	metalLoadBalancerClasses, mlbcDefault := makeMLBCMapFromSnapshot(input.Snapshots["mlbc"])
+	metalLoadBalancerClasses, mlbcDefaultName := makeMLBCMapFromSnapshot(input.Snapshots["mlbc"])
 
 	for _, serviceSnap := range input.Snapshots["services"] {
 		service, ok := serviceSnap.(ServiceInfo)
@@ -163,7 +163,7 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 			continue
 		} else if mlbc, ok = metalLoadBalancerClasses[service.LoadBalancerClass]; ok {
 			needPatchService = true
-		} else if mlbc, ok = metalLoadBalancerClasses[mlbcDefault]; ok {
+		} else if mlbc, ok = metalLoadBalancerClasses[mlbcDefaultName]; ok {
 			needPatchService = true
 		} else {
 			continue
