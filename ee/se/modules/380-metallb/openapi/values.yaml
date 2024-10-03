@@ -1,11 +1,12 @@
 x-extend:
   schema: config-values.yaml
 type: object
-x-required-for-helm: []
 properties:
   internal:
     type: object
     default: {}
+    x-required-for-helm:
+      - l2lbservices
     properties:
       l2loadbalancers:
         type: array
@@ -42,8 +43,6 @@ properties:
             serviceName:
               type: string
             serviceNamespace:
-              type: string
-            loadBalancerClass:
               type: string
             loadBalancerName:
               type: string
@@ -87,5 +86,23 @@ properties:
                   - port
                 type: object
               type: array
-x-examples: # TODO: Do full matrix test
-  - internal: {}
+x-examples:
+  - internal:
+      l2lbservices:
+        - publishNotReadyAddresses: false
+          name: serv_config-config_mlbc-0
+          namespace: nginx
+          serviceName: serv_config
+          serviceNamespace: nginx
+          preferredNode: frontend
+          clusterIP: 2.3.4.5
+          ports:
+            - protocol: TCP
+              port: 7474
+              targetPort: 7474
+          externalTrafficPolicy: Local
+          internalTrafficPolicy: Cluster
+          selector:
+            app: nginx
+          loadBalancerName: config_mlbc
+          desiredIP: "30.30.30.30"
