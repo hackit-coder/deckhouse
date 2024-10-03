@@ -27,7 +27,7 @@ var _ = sdk.RegisterFunc(&go_hook.HookConfig{
 			Name:       "mlbc",
 			ApiVersion: "network.deckhouse.io/v1alpha1",
 			Kind:       "MetalLoadBalancerClass",
-			FilterFunc: applyMetalLoadBalancerFilter,
+			FilterFunc: applyMetalLoadBalancerClassFilter,
 		},
 		{
 			Name:       "nodes",
@@ -122,31 +122,31 @@ func applyServiceFilter(obj *unstructured.Unstructured) (go_hook.FilterResult, e
 	}, nil
 }
 
-func applyMetalLoadBalancerFilter(obj *unstructured.Unstructured) (go_hook.FilterResult, error) {
-	var l2loadbalancer L2LoadBalancer
+func applyMetalLoadBalancerClassFilter(obj *unstructured.Unstructured) (go_hook.FilterResult, error) {
+	var metalloadbalancerclass MetalLoadBalancerClass
 
-	err := sdk.FromUnstructured(obj, &l2loadbalancer)
+	err := sdk.FromUnstructured(obj, &metalloadbalancerclass)
 	if err != nil {
 		return nil, err
 	}
 
 	interfaces := []string{}
-	if len(l2loadbalancer.Spec.L2.Interfaces) > 0 {
-		interfaces = l2loadbalancer.Spec.L2.Interfaces
+	if len(metalloadbalancerclass.Spec.L2.Interfaces) > 0 {
+		interfaces = metalloadbalancerclass.Spec.L2.Interfaces
 	}
 
-	return L2LoadBalancerInfo{
-		Name:         l2loadbalancer.Name,
-		AddressPool:  l2loadbalancer.Spec.AddressPool,
+	return MetalLoadBalancerClassInfo{
+		Name:         metalloadbalancerclass.Name,
+		AddressPool:  metalloadbalancerclass.Spec.AddressPool,
 		Interfaces:   interfaces,
-		NodeSelector: l2loadbalancer.Spec.NodeSelector,
-		IsDefault:    l2loadbalancer.Spec.IsDefault,
+		NodeSelector: metalloadbalancerclass.Spec.NodeSelector,
+		IsDefault:    metalloadbalancerclass.Spec.IsDefault,
 	}, nil
 }
 
 func handleLoadBalancers(input *go_hook.HookInput) error {
 	l2lbservices := make([]L2LBServiceConfig, 0, 4)
-	metalLoadBalancerClasses, l2lbDefault := makeL2LoadBalancersMapFromSnapshot(input.Snapshots["mlbc"])
+	metalLoadBalancerClasses, mlbcDefault := makeMLBCMapFromSnapshot(input.Snapshots["mlbc"])
 
 	for _, serviceSnap := range input.Snapshots["services"] {
 		service, ok := serviceSnap.(ServiceInfo)
@@ -154,16 +154,16 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 			continue
 		}
 
-		var l2lb L2LoadBalancerInfo
+		var mlbc MetalLoadBalancerClassInfo
 		var needPatchService bool
-		if l2lb, ok = metalLoadBalancerClasses[service.AssignedLoadBalancerClass]; ok {
+		if mlbc, ok = metalLoadBalancerClasses[service.AssignedLoadBalancerClass]; ok {
 			needPatchService = false
 		} else if service.AssignedLoadBalancerClass != "" {
 			// AssignedLoadBalancerClass is missing from existing MetalLoadBalancerClasses
 			continue
-		} else if l2lb, ok = metalLoadBalancerClasses[service.LoadBalancerClass]; ok {
+		} else if mlbc, ok = metalLoadBalancerClasses[service.LoadBalancerClass]; ok {
 			needPatchService = true
-		} else if l2lb, ok = metalLoadBalancerClasses[l2lbDefault]; ok {
+		} else if mlbc, ok = metalLoadBalancerClasses[mlbcDefault]; ok {
 			needPatchService = true
 		} else {
 			continue
@@ -175,7 +175,7 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 					"conditions": []metav1.Condition{
 						{
 							Type:    "network.deckhouse.io/LoadBalancerClass",
-							Message: l2lb.Name,
+							Message: mlbc.Name,
 							Status:  "True",
 							Reason:  "LoadBalancerClassBound",
 						},
@@ -191,7 +191,7 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 				object_patch.WithSubresource("/status"))
 		}
 
-		nodes := getNodesByLoadBalancer(l2lb, input.Snapshots["nodes"])
+		nodes := getNodesByMLBC(mlbc, input.Snapshots["nodes"])
 		if len(nodes) == 0 {
 			// There is no node that matches the specified node selector.
 			continue
@@ -205,18 +205,18 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 		for i := 0; i < loopCount; i++ {
 			nodeIndex := i % len(nodes)
 			config := L2LBServiceConfig{
-				Name:                     fmt.Sprintf("%s-%s-%d", service.Name, l2lb.Name, i),
-				Namespace:                service.Namespace,
-				ServiceName:              service.Name,
-				ServiceNamespace:         service.Namespace,
-				PreferredNode:            nodes[nodeIndex].Name,
-				ExternalTrafficPolicy:    service.ExternalTrafficPolicy,
-				InternalTrafficPolicy:    service.InternalTrafficPolicy,
-				PublishNotReadyAddresses: service.PublishNotReadyAddresses,
-				ClusterIP:                service.ClusterIP,
-				Ports:                    service.Ports,
-				Selector:                 service.Selector,
-				LoadBalancerName:         l2lb.Name,
+				Name:                       fmt.Sprintf("%s-%s-%d", service.Name, mlbc.Name, i),
+				Namespace:                  service.Namespace,
+				ServiceName:                service.Name,
+				ServiceNamespace:           service.Namespace,
+				PreferredNode:              nodes[nodeIndex].Name,
+				ExternalTrafficPolicy:      service.ExternalTrafficPolicy,
+				InternalTrafficPolicy:      service.InternalTrafficPolicy,
+				PublishNotReadyAddresses:   service.PublishNotReadyAddresses,
+				ClusterIP:                  service.ClusterIP,
+				Ports:                      service.Ports,
+				Selector:                   service.Selector,
+				MetalLoadBalancerClassName: mlbc.Name,
 			}
 			if isMigrateService {
 				config.DesiredIP = service.DesiredIPs[i]
@@ -226,7 +226,7 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 	}
 
 	// L2 Load Balancers are sorted before saving
-	l2loadbalancersInternal := make([]L2LoadBalancerInfo, 0, len(metalLoadBalancerClasses))
+	l2loadbalancersInternal := make([]MetalLoadBalancerClassInfo, 0, len(metalLoadBalancerClasses))
 	for _, value := range metalLoadBalancerClasses {
 		l2loadbalancersInternal = append(l2loadbalancersInternal, value)
 	}
@@ -246,16 +246,16 @@ func handleLoadBalancers(input *go_hook.HookInput) error {
 	return nil
 }
 
-func makeL2LoadBalancersMapFromSnapshot(snapshot []go_hook.FilterResult) (map[string]L2LoadBalancerInfo, string) {
-	l2lbMap := make(map[string]L2LoadBalancerInfo)
+func makeMLBCMapFromSnapshot(snapshot []go_hook.FilterResult) (map[string]MetalLoadBalancerClassInfo, string) {
+	mlbcMap := make(map[string]MetalLoadBalancerClassInfo)
 	var mlbcDefaultName string
-	for _, l2lbSnap := range snapshot {
-		if l2lb, ok := l2lbSnap.(L2LoadBalancerInfo); ok {
-			l2lbMap[l2lb.Name] = l2lb
-			if l2lb.IsDefault {
-				mlbcDefaultName = l2lb.Name
+	for _, mlbcSnap := range snapshot {
+		if mlbc, ok := mlbcSnap.(MetalLoadBalancerClassInfo); ok {
+			mlbcMap[mlbc.Name] = mlbc
+			if mlbc.IsDefault {
+				mlbcDefaultName = mlbc.Name
 			}
 		}
 	}
-	return l2lbMap, mlbcDefaultName
+	return mlbcMap, mlbcDefaultName
 }

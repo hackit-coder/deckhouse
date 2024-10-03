@@ -47,22 +47,22 @@ type L2LBServiceStatusInfo struct {
 }
 
 type L2LBServiceConfig struct {
-	PublishNotReadyAddresses bool                            `json:"publishNotReadyAddresses"`
-	Name                     string                          `json:"name"`
-	Namespace                string                          `json:"namespace"`
-	ServiceName              string                          `json:"serviceName"`
-	ServiceNamespace         string                          `json:"serviceNamespace"`
-	PreferredNode            string                          `json:"preferredNode,omitempty"`
-	ClusterIP                string                          `json:"clusterIP"`
-	Ports                    []v1.ServicePort                `json:"ports"`
-	ExternalTrafficPolicy    v1.ServiceExternalTrafficPolicy `json:"externalTrafficPolicy"`
-	InternalTrafficPolicy    v1.ServiceInternalTrafficPolicy `json:"internalTrafficPolicy"`
-	Selector                 map[string]string               `json:"selector"`
-	LoadBalancerName         string                          `json:"loadBalancerName"`
-	DesiredIP                string                          `json:"desiredIP"`
+	PublishNotReadyAddresses   bool                            `json:"publishNotReadyAddresses"`
+	Name                       string                          `json:"name"`
+	Namespace                  string                          `json:"namespace"`
+	ServiceName                string                          `json:"serviceName"`
+	ServiceNamespace           string                          `json:"serviceNamespace"`
+	PreferredNode              string                          `json:"preferredNode,omitempty"`
+	ClusterIP                  string                          `json:"clusterIP"`
+	Ports                      []v1.ServicePort                `json:"ports"`
+	ExternalTrafficPolicy      v1.ServiceExternalTrafficPolicy `json:"externalTrafficPolicy"`
+	InternalTrafficPolicy      v1.ServiceInternalTrafficPolicy `json:"internalTrafficPolicy"`
+	Selector                   map[string]string               `json:"selector"`
+	MetalLoadBalancerClassName string                          `json:"loadBalancerName"`
+	DesiredIP                  string                          `json:"desiredIP"`
 }
 
-type L2LoadBalancerInfo struct {
+type MetalLoadBalancerClassInfo struct {
 	Name         string            `json:"name"`
 	AddressPool  []string          `json:"addressPool"`
 	Interfaces   []string          `json:"interfaces"`
@@ -70,15 +70,15 @@ type L2LoadBalancerInfo struct {
 	IsDefault    bool              `json:"isDefault"`
 }
 
-type L2LoadBalancer struct {
+type MetalLoadBalancerClass struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   L2LoadBalancerSpec   `json:"spec,omitempty"`
-	Status L2LoadBalancerStatus `json:"status,omitempty"`
+	Spec   MetalLoadBalancerClassSpec   `json:"spec,omitempty"`
+	Status MetalLoadBalancerClassStatus `json:"status,omitempty"`
 }
 
-type L2LoadBalancerSpec struct {
+type MetalLoadBalancerClassSpec struct {
 	NodeSelector map[string]string `json:"nodeSelector,omitempty"`
 	L2           L2Type            `json:"l2,omitempty"`
 	AddressPool  []string          `json:"addressPool,omitempty"`
@@ -89,7 +89,7 @@ type L2Type struct {
 	Interfaces []string `json:"interfaces,omitempty"`
 }
 
-type L2LoadBalancerStatus struct {
+type MetalLoadBalancerClassStatus struct {
 }
 
 type SDNInternalL2LBServiceSpec struct {

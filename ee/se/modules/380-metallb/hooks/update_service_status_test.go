@@ -14,7 +14,7 @@ import (
 	. "github.com/deckhouse/deckhouse/testing/hooks"
 )
 
-var _ = Describe("l2-load-balancer :: hooks :: update_service_status ::", func() {
+var _ = Describe("Metallb :: hooks :: update_service_status ::", func() {
 	f := HookExecutionConfigInit(`{"l2LoadBalancer":{"internal": {"l2lbservices": [{}]}}}`, "")
 	f.RegisterCRD("internal.network.deckhouse.io", "v1alpha1", "SDNInternalL2LBService", true)
 

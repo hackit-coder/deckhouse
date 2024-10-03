@@ -24,7 +24,7 @@ var _ = sdk.RegisterFunc(&go_hook.HookConfig{
 			Name:       "mlbc",
 			ApiVersion: "network.deckhouse.io/v1alpha1",
 			Kind:       "MetalLoadBalancerClass",
-			FilterFunc: applyLoadBalancerLabelFilter,
+			FilterFunc: applyMetalLoadBalancerClassLabelFilter,
 		},
 		{
 			Name:       "nodes",
@@ -52,18 +52,18 @@ func applyNodeLabelFilter(obj *unstructured.Unstructured) (go_hook.FilterResult,
 	}, nil
 }
 
-func applyLoadBalancerLabelFilter(obj *unstructured.Unstructured) (go_hook.FilterResult, error) {
-	var l2loadbalancer L2LoadBalancer
+func applyMetalLoadBalancerClassLabelFilter(obj *unstructured.Unstructured) (go_hook.FilterResult, error) {
+	var metalloadbalancerclass MetalLoadBalancerClass
 
-	err := sdk.FromUnstructured(obj, &l2loadbalancer)
+	err := sdk.FromUnstructured(obj, &metalloadbalancerclass)
 	if err != nil {
 		return nil, err
 	}
 
-	return L2LoadBalancerInfo{
-		Name:         l2loadbalancer.Name,
-		AddressPool:  l2loadbalancer.Spec.AddressPool,
-		NodeSelector: l2loadbalancer.Spec.NodeSelector,
+	return MetalLoadBalancerClassInfo{
+		Name:         metalloadbalancerclass.Name,
+		AddressPool:  metalloadbalancerclass.Spec.AddressPool,
+		NodeSelector: metalloadbalancerclass.Spec.NodeSelector,
 	}, nil
 }
 
@@ -71,13 +71,13 @@ func handleLabelsUpdate(input *go_hook.HookInput) error {
 	actualLabeledNodes := getLabeledNodes(input.Snapshots["nodes"])
 	desiredLabeledNodes := make([]NodeInfo, 0, 4)
 
-	for _, l2lbSnap := range input.Snapshots["mlbc"] {
-		l2lbInfo, ok := l2lbSnap.(L2LoadBalancerInfo)
+	for _, mlbcSnap := range input.Snapshots["mlbc"] {
+		mlbcInfo, ok := mlbcSnap.(MetalLoadBalancerClassInfo)
 		if !ok {
 			continue
 		}
 
-		nodes := getNodesByLoadBalancer(l2lbInfo, input.Snapshots["nodes"])
+		nodes := getNodesByMLBC(mlbcInfo, input.Snapshots["nodes"])
 		if len(nodes) == 0 {
 			// There is no node that matches the specified node selector.
 			continue
@@ -126,7 +126,7 @@ func getLabeledNodes(snapshot []go_hook.FilterResult) []NodeInfo {
 	return result
 }
 
-func getNodesByLoadBalancer(lb L2LoadBalancerInfo, snapshot []go_hook.FilterResult) []NodeInfo {
+func getNodesByMLBC(lb MetalLoadBalancerClassInfo, snapshot []go_hook.FilterResult) []NodeInfo {
 	nodes := make([]NodeInfo, 0, 4)
 	for _, nodeSnap := range snapshot {
 		node := nodeSnap.(NodeInfo)
