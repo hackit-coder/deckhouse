@@ -53,6 +53,7 @@
  - **[node-manager]** Add alert about unavailable CAPS instances. [#9195](https://github.com/deckhouse/deckhouse/pull/9195)
  - **[registrypackages]** Add new module `deckhouse-tools`. [#9140](https://github.com/deckhouse/deckhouse/pull/9140)
  - **[secret-copier]** Delete ArgoCD labels on copied secrets [#9670](https://github.com/deckhouse/deckhouse/pull/9670)
+ - **[user-authn]** Add claimMappingOverride option for OIDC Dex provider [#9974](https://github.com/deckhouse/deckhouse/pull/9974)
  - **[user-authz]** RBAC v2. The new RBAC model. [#8538](https://github.com/deckhouse/deckhouse/pull/8538)
 
 ## Fixes
@@ -88,6 +89,8 @@
  - **[cloud-provider-yandex]** Minimize RBAC permissions by removing the wildcard("*") from ClusterRole rules. [#8969](https://github.com/deckhouse/deckhouse/pull/8969)
  - **[cloud-provider-zvirt]** Canceling migration from d8-cni-configuration secret to proper CNI module configs. [#9900](https://github.com/deckhouse/deckhouse/pull/9900)
  - **[cloud-provider-zvirt]** Minimize RBAC permissions by removing the wildcard("*") from ClusterRole rules. [#8969](https://github.com/deckhouse/deckhouse/pull/8969)
+ - **[cni-cilium]** wiping unwanted iptables-legacy rules [#9971](https://github.com/deckhouse/deckhouse/pull/9971)
+    All cilium-agent pods will be restarted.
  - **[cni-cilium]** Canceling migration from d8-cni-configuration secret to proper CNI module configs. [#9900](https://github.com/deckhouse/deckhouse/pull/9900)
  - **[cni-cilium]** iptables-wrapper fix for cilium pods. [#9856](https://github.com/deckhouse/deckhouse/pull/9856)
     The cilium pods will be restarted.
@@ -111,6 +114,7 @@
  - **[deckhouse-controller]** Correct module validation. [#8989](https://github.com/deckhouse/deckhouse/pull/8989)
  - **[deckhouse-tools]** Fix custom certs copying. [#9840](https://github.com/deckhouse/deckhouse/pull/9840)
  - **[delivery]** Fixed the `argocd-repo-server` and `argocd-server` Services with multiple ports broken by Helm. [#9573](https://github.com/deckhouse/deckhouse/pull/9573)
+ - **[dhctl]** Fix sshBastionPort spec type [#9990](https://github.com/deckhouse/deckhouse/pull/9990)
  - **[dhctl]** Canceling migration from d8-cni-configuration secret to proper CNI module configs. [#9900](https://github.com/deckhouse/deckhouse/pull/9900)
  - **[dhctl]** Fix SSH client startup in Deckhouse installation phase. [#9628](https://github.com/deckhouse/deckhouse/pull/9628)
  - **[dhctl]** Retry loop for `ensureRequiredNamespacesExist` function. [#9620](https://github.com/deckhouse/deckhouse/pull/9620)
@@ -123,6 +127,7 @@
  - **[helm_lib]** Check a helm client's capabilities before applying validatingadmissionpolicies. [#9705](https://github.com/deckhouse/deckhouse/pull/9705)
  - **[ingress-nginx]** Bump ingress-nginx to `1.10.4`. [#9513](https://github.com/deckhouse/deckhouse/pull/9513)
     Ingress nginx controller will restart.
+ - **[istio]** Improved validation of the ModuleConfig [#9912](https://github.com/deckhouse/deckhouse/pull/9912)
  - **[istio]** Fixed the `kiali` Service with multiple ports broken by Helm. [#9573](https://github.com/deckhouse/deckhouse/pull/9573)
  - **[istio]** Fixed an issue with automatically applying new custom certificates for mTLS issuing. [#9335](https://github.com/deckhouse/deckhouse/pull/9335)
  - **[kube-dns]** Fixed the `d8-kube-dns` and `d8-kube-dns-redirect` Services with multiple ports broken by Helm. [#9573](https://github.com/deckhouse/deckhouse/pull/9573)
