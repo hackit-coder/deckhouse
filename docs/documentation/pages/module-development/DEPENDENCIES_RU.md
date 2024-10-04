@@ -59,7 +59,9 @@ requirements:
     deckhouse: ">= 1.61"
 ```
 
+{% alert level="info" %}
 Для тестирования можно задать переменную окружения `TEST_EXTENDER_DECKHOUSE_VERSION`, чтобы симулировать желаемую версию Deckhouse Kubernetes Platform.
+{% endalert %}
 
 ### Зависимость от версии Kubernetes
 
@@ -117,7 +119,9 @@ requirements:
     kubernetes: ">= 1.27"
 ```
 
+{% alert level="info" %}
 Для тестирования можно задать переменную окружения `TEST_EXTENDER_KUBERNETES_VERSION`, чтобы симулировать желаемую версию Kubernetes.
+{% endalert %}
 
 ### Зависимость от статуса установки кластера (bootstrapped)
 
