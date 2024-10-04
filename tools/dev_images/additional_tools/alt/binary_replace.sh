@@ -95,7 +95,8 @@ function get_binary_path () {
 
   for bin in "$@"; do
     if [[ ! -f $bin ]] || [ "${bin}" == "${RDIR}" ]; then
-      continue
+      echo "Not found $bin"
+      exit 1
     fi
     BINARY_LIST+=$(ls -la $bin 2>/dev/null | awk '{print $9}')" "
   done
