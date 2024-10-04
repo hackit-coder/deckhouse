@@ -21,6 +21,15 @@ FILE_TEMPLATE_BINS=""
 TEMPLATE_BINS=""
 RDIR=""
 
+tools=("ldd" "readlink" "awk" "dirname" "ls" "cat")
+
+for tool in "${tools[@]}"; do
+  if ! command -v "$tool" >/dev/null 2>&1; then
+    echo "$tool is not installed."
+    exit 1
+  fi
+done
+
 function Help() {
    # Display Help
    echo "Copy binaries and their libraries to a folder"
