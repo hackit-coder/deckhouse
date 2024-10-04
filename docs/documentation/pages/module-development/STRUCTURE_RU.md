@@ -488,7 +488,6 @@ weight: 402
 description: |
     Ingress controller for nginx
     https://kubernetes.github.io/ingress-nginx
-
 requirements:
     bootstrapped: true
 ```
