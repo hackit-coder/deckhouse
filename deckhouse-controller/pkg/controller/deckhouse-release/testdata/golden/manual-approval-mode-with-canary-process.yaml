@@ -26,7 +26,7 @@ spec:
   version: v1.36.0
 status:
   approved: false
-  message: Waiting for manual approval
+  message: Release is waiting for manual approval
   phase: Pending
   transitionTime: "2019-10-17T15:33:00Z"
 ---

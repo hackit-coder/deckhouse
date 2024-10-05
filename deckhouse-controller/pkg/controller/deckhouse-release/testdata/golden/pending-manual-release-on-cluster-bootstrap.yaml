@@ -20,12 +20,12 @@ kind: DeckhouseRelease
 metadata:
   creationTimestamp: null
   name: v1.46.0
-  resourceVersion: "1000"
+  resourceVersion: "1001"
 spec:
   version: v1.46.0
 status:
   approved: false
-  message: Waiting for manual approval
+  message: Release is waiting for manual approval
   phase: Pending
   transitionTime: "2019-10-17T15:33:00Z"
 ---
